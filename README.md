@@ -10,7 +10,7 @@ I'll try to stick to this structure as much as I can
 
 -   #### Books notes:
     
-    Each book markdown file will begin by some basic info like title, version if applicable, author(s), publication date, and a link to purchase or read.
+    Each book markdown file will begin by some basic info like title, edition if applicable, author(s), and a link to purchase or read.
     
     As well as date started, and date finished to give me some basic overview of my reading performance for a given year.
     
@@ -24,6 +24,6 @@ I'll try to stick to this structure as much as I can
     
 -   #### Other things notes:
     
-    These things may be articles, documentation, interview, etc.
+    These things may be articles, documentations, interviews, etc.
     
     A large chunk of these notes will not be organized very nicely, no highlights or any fancy stuff will be expected.
