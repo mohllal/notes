@@ -107,3 +107,35 @@ Date Finished: ongoing
   - Using the `RegExp` constructor which takes a string and compiles it into a RegExp object.
 
 - The `\f` is the formfeed character, `\n` is the newline character, `\r` is the carriage return character, `\t` is the tab character, and `\u` allows for specifying a Unicode character as a 16-bit hex constant.
+
+### Chapter 9: Style
+
+- JavaScript’s loose typing and excessive error tolerance provide little compile-time assurance of our programs’ quality, so to compensate, we should code with strict discipline.
+
+- Some styling rules to be followed:
+  
+  - Four spaces indentation for the contents of blocks and object literals.
+  
+  - A space between `if` and `(` so that the if didn’t look like a function invocation.
+  
+  - A space around all infix operators except for `.` and `[`, which do not get spaces because they have higher precedence.
+  
+  - A space after every comma and colon.
+  
+  - One statement on a line. If a statement doesn’t fit on a line, I will break it after a comma or a binary operator. Four spaces indentation for the remainder of the statement.
+  
+  - Curly braces after structured statements such as `if` and `while`; even if they contain only one statement.
+  
+  - Comments, comments, and comments. Keep comments up-to-date, erroneous comments can make programs even harder to read and understand.
+
+- Features that are sometimes useful but occasionally dangerous. Those are the worst parts because it is difficult to tell whether they are being used correctly. That is a place where bugs hide.
+
+- A single global variable can be used to contain an application or library. Every object has its own namespace, so it is easy to use objects to organize the code.
+
+- Closures can be used to provide further information hiding, increasing the strength of modules.
+
+### Chapter 10: Beautiful Features
+
+- Features can have a negative value to consumers because they make the products more difficult to understand and use. It turns out that designs that just work are much harder to produce than designs that assemble long lists of features.
+
+- Features have a specification cost, a design cost, and a development cost. Also there is a testing cost and a reliability cost. The more features there are, the more likely one will develop problems or will interact badly with another.
