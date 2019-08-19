@@ -8,22 +8,28 @@ I welcome you to contribute your notes on the things I added or add new topics e
 
 I'll try to stick to this structure as much as I can
 
--   #### Books notes:
-    
+- #### Books notes
+
     Each book markdown file will begin by some basic info like title, edition if applicable, author(s), and a link to purchase or read.
-    
+
     As well as date started, and date finished to give me some basic overview of my reading performance for a given year.
-    
     Each chapter notes will be listed as an unordered (bullet) list.
-    
--   #### Courses notes:
-    
+
+- #### Courses notes
+
     Each course markdown file will begin by some basic info like name, creator(s), and a link to purchase or watch. As well as date started, and date finished.
-    
+
     Each section (lesson) notes will be listed as an unordered (bullet) list.
-    
--   #### Other things notes:
-    
+
+- #### Other things notes
+
     These things may be articles, documentations, interviews, etc.
-    
+
     A large chunk of these notes will not be organized very nicely, no highlights or any fancy stuff will be expected.
+
+### Table of Contents
+
+- Books
+  - [JavaScript: The Good Parts](book-javaScript-the-good-parts.md)
+- Courses
+  - [Foundations of Programming: Object-Oriented Design](course-object-oriented-design.md)
