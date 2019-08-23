@@ -27,3 +27,19 @@ Date Finished: ongoing
   - Identify not just what has to happen, but whose job it is! It's not about showing who is initiating the action but where the responsibility lies for performing it.
 
 - CRC cards (for Class, Responsibilities, Collaborators) are usually written on index cards. Each CRC card represents one class and it has three seconds class name, class responsibilities, and collaborators.
+
+### Section 5: Creating Classes
+
+- Class diagram is divided into three sections class name, attributes, and operations.
+- Classes are named in singular not plural, and they must start with a capital letter.
+- Class attributes are written as *<attributeName>*:*<attributeDataType>* =*<attributeDefaultValue>*
+- Class operations are written as *<operationName>* (*<parameterDataType>*): *<returnDataType>*
+- Controlling the visibility of attributes or operations by putting `-` or `+` in front of the attribute or operation name. - means private accessibility and `+` means public accessibility.
+- Avoid defining class that are entirely devoid of any behaviors.
+- Class attributes are converted to instance variables and operations/behaviours are converted to instance methods.
+- Instantiation is the process of creating an object from a class, allocating a memory block for it, initializing its attributes and then returning a reference to it.
+- Constructor is a special method that exists to construct the object and it's called when the object is created.
+- Destructor/finalizer is a special method that is called when an object is no longer need and it's being disposed off. It's often used to release resources attached to that object before it's being destroyed.
+- Static/shared member of class means that a variable or a method that is shared across all objects of that class. It's sometimes called class-level variable or method and it can be accessed by the class name as *<className>*.*<staticMemberName>*.
+- Static methods can only accessed static variables.
+- Static members are shown in UML diagrams with an underline.
