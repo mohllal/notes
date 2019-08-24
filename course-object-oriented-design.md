@@ -43,3 +43,25 @@ Date Finished: ongoing
 - Static/shared member of class means that a variable or a method that is shared across all objects of that class. It's sometimes called class-level variable or method and it can be accessed by the class name as *<className>*.*<staticMemberName>*.
 - Static methods can only accessed static variables.
 - Static members are shown in UML diagrams with an underline.
+
+### Section 6: Inheritance and Composition
+
+- Inheritance describes an *is-a* relationship.
+- In UML, inheritance is represented with the *solid open arrow*. If one class (child class, or subclass) is pointed to the other class (parent class, or superclass) it means that it's inherited from it.
+- Overriding refers to changing one of the inherited behaviors from the superclass.
+- Inheritance announces itself, don't go looking for parent classes to your classes.
+- Abstract class is exist purely for the sake of being inherited, so it is never instantiated.
+- Abstract class is used to provide shared attributes and behaviors to other classes.
+- Classes that can be instantiated are named concrete class.
+- Interfaces can only contain method signatures but no method definitions. 
+- Classes that implement an interface must define methods with the same names as these that are in the interface.
+- In UML, interfaces are shown the same way as classes but with the *<<interface>>* tag.
+- A *dotted arrow* from the class, that implements the interface, to the interface represents an interface implementation rather than inheritance.
+- Favor using interfaces to provide formal list of methods to support rather than using inheritance.
+- Program to an interface, not an implementation.
+- Drawing any kind of line between objects represents some kind of action or interaction.
+- Aggregation describes an *has-a* relationship. In UML, aggregation is represented with the *unfilled diamond*.
+- Multiplicity indicators can be used to represent a *has-many* relationship.
+- Composition is more specific form of aggregation, it implies ownership.
+- In composition, when the owner object is destroyed so are the contained object.
+- In UML, composition is represented with the *filled diamond*.
