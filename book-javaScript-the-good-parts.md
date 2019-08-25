@@ -108,6 +108,13 @@ Date Finished: ongoing
 
 - The `\f` is the formfeed character, `\n` is the newline character, `\r` is the carriage return character, `\t` is the tab character, and `\u` allows for specifying a Unicode character as a 16-bit hex constant.
 
+### Chapter 8: Methods
+
+- Some useful Array methods: `array.join(separator)`, `array.reverse()`, `array.slice(start, end)`, `array.sort(comparefunc)`, and `array.unshift(item…)`.
+- Some useful Number methods: `number.toPrecision(precision)`, and `number.toString(radix)`.
+- Some useful Object methods: `object.hasOwnProperty(name)`.
+- Some usefull String methods: `string.charAt(pos)`, `string.indexOf(searchString, start)`, `string.lastIndexOf(searchString, start)`, `string.match(regexp)`, `string.replace(searchValue, replaceValue)`, `string.search(regexp)`, `string.toLowerCase()` and `string.toUpperCase()`.
+
 ### Chapter 9: Style
 
 - JavaScript’s loose typing and excessive error tolerance provide little compile-time assurance of our programs’ quality, so to compensate, we should code with strict discipline.
