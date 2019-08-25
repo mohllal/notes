@@ -4,7 +4,7 @@ By: Douglas Crockford. [Purchase the book](https://www.amazon.com/JavaScript-Goo
 
 Date Started: Tuesday, August 13, 2019
 
-Date Finished: ongoing
+Date Finished: Sunday, August 25, 2019
 
 ### Chapter 5: Inheritance
 
