@@ -65,3 +65,13 @@ Date Finished: ongoing
 - Composition is more specific form of aggregation, it implies ownership.
 - In composition, when the owner object is destroyed so are the contained object.
 - In UML, composition is represented with the *filled diamond*.
+
+### Section 7: Inheritance and Composition
+
+- Use case diagrams, class diagrams, and conceptual model diagrams are all considered static/structural diagrams. Sequence diagrams are considered dynamic/behavioral diagrams which describe how different objects change and how they are communicate with each other.
+- Sequence diagram doesn't describe the entire system, it only describe one particular interaction between a few objects in one scenario.
+- Sequence diagrams aren't for modeling the entire scenario down to the last conditional or the last iteration. Sequence diagrams are offering an overview for the important parts of the scenario.
+- Solid boxes written on the lifetime line are called activation boxes or method call boxes, they are representing processing being done in response to another action.
+- State machine diagram (state chart) describes how a single object changes its state over its lifetime.
+- State machine diagram contains rectangles with rounded corners which represent different states that the object can live in and the transition between one to the other and what causes it.
+- Activity diagrams are the closest thing to the classic flowchart diagrams and they detail the steps and decisions that can occur as you flow through part of the system.
