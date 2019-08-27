@@ -66,7 +66,7 @@ Date Finished: ongoing
 - In composition, when the owner object is destroyed so are the contained object.
 - In UML, composition is represented with the *filled diamond*.
 
-### Section 7: Inheritance and Composition
+### Section 7: Advanced Concepts
 
 - Use case diagrams, class diagrams, and conceptual model diagrams are all considered static/structural diagrams. Sequence diagrams are considered dynamic/behavioral diagrams which describe how different objects change and how they are communicate with each other.
 - Sequence diagram doesn't describe the entire system, it only describe one particular interaction between a few objects in one scenario.
@@ -75,3 +75,13 @@ Date Finished: ongoing
 - State machine diagram (state chart) describes how a single object changes its state over its lifetime.
 - State machine diagram contains rectangles with rounded corners which represent different states that the object can live in and the transition between one to the other and what causes it.
 - Activity diagrams are the closest thing to the classic flowchart diagrams and they detail the steps and decisions that can occur as you flow through part of the system.
+
+### Section 8: Object-Oriented Design Patterns
+
+- Design patterns are well-tested solutions or best practices to common problems and issues we run into in software development.
+- Design patterns can be splitted into three groups: creational, structural, and behavioral.
+- Singleton design pattern is used to ensure that only one object of a specific class can be instantiated.
+- Memento design pattern is used to handle the ***undo*** behavior in an object without violating encapsulation.
+- In the memento pattern, the originator object is the object that needs to be able to revert back to any previous state at any time.
+- In the memento pattern, the catetaker object is the object that deals with when and why the originator needs to save its state or to revert back to a previous state.
+- In the memento pattern, the memento object is the object that saves the important parts of the originator object that needs to be returned to a particular state.
