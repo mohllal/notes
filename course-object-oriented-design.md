@@ -85,3 +85,36 @@ Date Finished: ongoing
 - In the memento pattern, the originator object is the object that needs to be able to revert back to any previous state at any time.
 - In the memento pattern, the catetaker object is the object that deals with when and why the originator needs to save its state or to revert back to a previous state.
 - In the memento pattern, the memento object is the object that saves the important parts of the originator object that needs to be returned to a particular state.
+
+### Section 9: Object-Oriented Design Patterns
+
+- Some examples of general development principles:
+  
+  - DRY principle (Don't Repeat Yourself).
+  - YAGNI principle (You Ain't Gonna Need It).
+
+- SOLID principles of object oriented design:
+  - S: Single responsibility principle
+  - O: Open/Closed principle
+  - L: Liskov substitution principle
+  - I: Interface segregation principle
+  - D: Dependency inversion principle
+
+- Single responsibility principle: An object should have one reason to exist, one reason to change - one primary responsibility, and that reason entirely encapsulated within one class.
+- Open/Closed principle: Open for extension, closed for modification.
+- Liskov substitution principle: Derived classes must be substitutable for their base classes.
+- Interface segregation principle: Multiple specific interfaces are better than one general purpose interface.
+- Dependency inversion principle: Depend on abstractions, not on concretions.
+- GRASP (General Responsibility Assignment Software Patterns) principles of object oriented design:
+  - Information expert
+  - Creator.
+  - Pure fabrication.
+  - Controller.
+  - Low coupling.
+  - High cohesion.
+  - Indirection.
+  - Polymorphism.
+  - Protected variations.
+- Information expert principle: Assign the responsibility to the class that has the information needed to fulfill it.
+- Coupling is the level of dependencies between objects
+- Cohesion is the level that a class contains focus, related behaviors.
