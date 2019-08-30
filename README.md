@@ -1,6 +1,6 @@
 # Notes
 
-Notes from books, courses and other interesting things that I've read or watched. I'm sharing them in the hope that they would be useful to anyone as well.
+This repository contains my notes, highlights, and even quotes from books, courses and other interesting things that I've read or watched. I'm sharing them in the hope that they would be useful to anyone as well.
 
 I welcome you to contribute your notes on the things I added or add new topics entirely! Corrections in any form are welcome.
 
@@ -31,5 +31,6 @@ I'll try to stick to this structure as much as I can
 
 - Books
   - [JavaScript: The Good Parts](book-javaScript-the-good-parts.md)
+  - [Clean Code: A Handbook of Agile Software Craftsmanship](book-clean-code.md)
 - Courses
   - [Foundations of Programming: Object-Oriented Design](course-object-oriented-design.md)
