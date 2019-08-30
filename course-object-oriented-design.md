@@ -4,7 +4,7 @@ By: Simon Allardice. [Purchase the course](https://www.simonallardice.com/course
 
 Date Started: Monday, August 12, 2019
 
-Date Finished: ongoing
+Date Finished: Friday, August 30, 2019
 
 ### Section 4: Domain Modeling
 
@@ -94,6 +94,7 @@ Date Finished: ongoing
   - YAGNI principle (You Ain't Gonna Need It).
 
 - SOLID principles of object oriented design:
+  
   - S: Single responsibility principle
   - O: Open/Closed principle
   - L: Liskov substitution principle
@@ -101,11 +102,17 @@ Date Finished: ongoing
   - D: Dependency inversion principle
 
 - Single responsibility principle: An object should have one reason to exist, one reason to change - one primary responsibility, and that reason entirely encapsulated within one class.
+
 - Open/Closed principle: Open for extension, closed for modification.
+
 - Liskov substitution principle: Derived classes must be substitutable for their base classes.
+
 - Interface segregation principle: Multiple specific interfaces are better than one general purpose interface.
+
 - Dependency inversion principle: Depend on abstractions, not on concretions.
+
 - GRASP (General Responsibility Assignment Software Patterns) principles of object oriented design:
+  
   - Information expert
   - Creator.
   - Pure fabrication.
@@ -115,6 +122,26 @@ Date Finished: ongoing
   - Indirection.
   - Polymorphism.
   - Protected variations.
+
 - Information expert principle: Assign the responsibility to the class that has the information needed to fulfill it.
+
 - Coupling is the level of dependencies between objects
+
 - Cohesion is the level that a class contains focus, related behaviors.
+
+### Section 10: Conclusion
+
+- | Language   | Inherence  | Typing  | Abstract Classes | Interfaces       |
+  | ---------- | ---------- | ------- | ---------------- | ---------------- |
+  | Java       | Single     | Static  | Yes              | Yes              |
+  | C#         | Single     | Static  | Yes              | Yes              |
+  | C++        | Multiple   | Static  | Yes              | Abstract Classes |
+  | Ruby       | Mix-ins    | Dynamic | n/a              | n/a              |
+  | JavaScript | Prototype  | Dynamic | n/a              | n/a              |
+
+- Some useful books to-be read:
+  
+  - Requirement Gathering: [Software Requirements](https://www.amazon.com/Software-Requirements-2-Karl-Wiegers/dp/B00CVDWS5O) By Karl Wieger.
+  - Use Cases: [Writing Effective Use Cases](https://www.amazon.com/Writing-Effective-Cases-Alistair-Cockburn/dp/0201702258) By Alistair Cockburn.
+  - User Stories: [User Stories Applied](https://www.amazon.com/User-Stories-Applied-Software-Development/dp/0321205685) By Mike Cohn.
+  - UML: [UML Distilled](https://www.amazon.com/UML-Distilled-Standard-Modeling-Language/dp/0321193687) By Martin Fowler.
