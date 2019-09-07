@@ -28,3 +28,29 @@ Date Finished: ongoing
 - > A building with broken windows looks like nobody cares about
   > it. So other people stop caring. They allow more windows to become broken. Eventually they actively break them. They despoil the facade with graffiti and allow garbage to collect. One broken window starts the process toward decay.
 - Clean code is code that has been taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.
+
+### Chapter 2: Meaningful Names
+
+- Names should reveal intent. Names should tell us why it exists, what it does, and how it is used.
+- Avoid using words whose entrenched meanings vary from our intended meaning.
+- Avoid using lower-case L or uppercase O as variable names, especially in combination. The problem, of course, is that they look almost entirely like the constants one and zero, respectively.
+- Noise words are redundant. The word variable should never appear in a variable name. The word table should never appear in a table name.
+- Single-letter names may only be used as local variables inside short methods. The length of a name should correspond to the size of its scope.
+- > One difference between a smart programmer and a professional programmer is that the professional understands that *clarity is king*. Professionals use their powers for  good and write code that others can understand.
+- Classes and objects should have noun or noun phrase names. Methods should have verb or verb phrase names.
+- Shorter names are generally better than longer ones, so long as they are clear. Add no
+more context to a name than is necessary.
+
+- The golden rules for naming:
+  - Use intention-revealing names
+  - Avoid disinformation
+  - Make meaningful distinctions
+  - Use pronounceable names
+  - Use searchable names
+  - Avoid encodings
+  - Avoid mental mapping
+  - Pick one word per concept
+  - Use solution domain names
+  - Use problem domain names
+  - Add meaningful context
+  - Don’t add gratuitous context
