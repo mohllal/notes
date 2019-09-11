@@ -73,3 +73,30 @@ more context to a name than is necessary.
 - *Command Query Separation* is a good mechanism to separate the command from the query so that the function's ambiguity cannot occur.
 - Functions should do one thing. Error handing is one thing. Thus, a function that handles errors should do nothing else.
 - Edsger Dijkstra’s rules of structured programming: every function, and every block within a function, should have one entry and one exit.
+
+### Chapter 4: Comments
+
+- The proper use of comments is to compensate for our failure to express ourself in code. Note that I used the word failure.
+- Comments don’t always follow the changes of code-they can’t always follow them.
+- It's a way too better to put energy go toward making the code so clear and expressive that it does not need the comments in the first place.
+- > Truth can only be found in one place: the code. Only the code can truly tell you what it does. It is the only source of truly accurate information.
+- Some good comments examples:
+  - Legal comments
+  - Informative comments
+  - Explanation of intent comments
+  - Warning of consequences comments
+  - TODO comments
+  - Amplification comments
+  - Public API comments
+
+- Some bad comments examples:
+  - Mumbling comments
+  - Redundant comments
+  - Misleading comments
+  - Mandated comments
+  - Journal comments
+  - Noise comments
+  - Position markers comments
+  - Closing brace comments
+  - Commented-Out code comments
+  - Nonlocal information comments
