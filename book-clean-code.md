@@ -112,3 +112,14 @@ more context to a name than is necessary.
   - Variables should be declared as close to their usage as possible.
   - Instance variables, on the other hand, should be declared at the top of the class.
   - If one function calls another, they should be vertically close, and the caller should be above the callee, if at all possible
+
+### Chapter 6: Objects and Data Structures
+
+- Hiding implementation is about abstractions! A class does not simply push its variables out through getters and setters, it exposes abstract interfaces that allow its users to manipulate the essence of the data, without having to know its implementation.
+- > Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.
+- > Procedural code makes it hard to add new data structures because all the functions must change. OO code makes it hard to add new functions because all the classes must change.
+- In case the system needs to add new data types rather than new functions, objects and OO are most appropriate. On the other hand, there will also be times when we’ll want to add new functions as opposed to data types. In that case procedural code and data structures will be more appropriate.
+- *Law of Demeter*: a module should not know about the innards of the objects it manipulates. An object should not expose its internal structure through accessors because to do so is to expose, rather than to hide, its internal structure.
+- Data transfer object is a class with public variables and no functions. It's very useful structures, especially when communicating with databases or parsing messages from sockets.
+- Active Records are special forms of DTOs. They are data structures with public variables; but they typically have navigational methods like save and find.
+- Never put business rule methods inside active records or DTOs because it creates a hybrid between a data structure and an object.
