@@ -100,3 +100,15 @@ more context to a name than is necessary.
   - Closing brace comments
   - Commented-Out code comments
   - Nonlocal information comments
+
+### Chapter 5: Formatting
+
+- Code formatting is important. It is too important to ignore and it is too important to treat religiously. Code formatting is about communication, and communication is the professional developer’s first order of business.
+- > Your style and discipline survives, even though your code does not.
+- Blank lines that separate concepts or modules are extremely helpful. Each blank line is a visual cue.
+- Lines of code that are tightly related should appear vertically dense.
+- Concepts that are closely related should be kept vertically close to each other. Closely related concepts should not be separated into different files.
+- Some rules to minimize the vertical distance of code:
+  - Variables should be declared as close to their usage as possible.
+  - Instance variables, on the other hand, should be declared at the top of the class.
+  - If one function calls another, they should be vertically close, and the caller should be above the callee, if at all possible
