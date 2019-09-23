@@ -83,3 +83,10 @@ Date Finished: Friday, ongoing
   - The image that was generated during the last step is the output custom image.
 - `docker build -t <docker_Id>/<repo_name>:<version>` command is used to tag an image.
 - `docker commit -c <startup_command> <container_id>` command is used to manually generate a custom image from a running container.
+
+### Section 4: Making Real Projects with Docker
+
+- `alpine` is a term in the Docker world for an image that is as small and compact as possible.
+- `COPY ./ ./` instruction is used to copy the contents of the build context folder to current working directory in the custom image.
+- `-p <host_port>:<container_port>` flag is used to forward the traffic coming on a port inside the host network to a port inside the container network.
+- `WORKDIR <folder_path>` instruction is used to change the working directory in the container.
