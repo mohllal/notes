@@ -29,3 +29,8 @@ or daemon, which, in turn, does all the work. Docker ships with a command line c
 - The Docker ecosystem contains two more tools:
   - Docker Compose: which allows to run stacks of containers to represent application stacks.
   - Docker Swarm: which allows to create clusters of containers, called swarms, that allow you to run scalable workloads.
+
+### Chapter 2: Installing Docker
+
+- Docker runs as a root-privileged daemon process to allow it to handle operations that can’t be executed by normal users (e.g., mounting filesystems).
+- If a group named `docker` exists on our system, Docker will apply ownership of the Unix socket at `/var/run/docker.sock` to that group. Hence, any user that belongs to the `docker` group can run Docker without needing to use the `sudo` command.
