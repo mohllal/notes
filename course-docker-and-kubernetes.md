@@ -103,3 +103,10 @@ Date Finished: Friday, ongoing
   - *on-failure*: Only restart the container if it stops with an error code.
   - *unless-stopped*: Always restart the container unless someone forcibly stop it.
 - `docker-compose ps` command is used to list all containers that are running by issuing a `docker-compose up` command.
+
+### Section 6: Creating a Production-Grade Workflow
+
+- `docker build -f <file_name> .` command is used to build a docker image from a `Dockerfile` with a custom name.
+- `-v <host_path>:<container_path>` flag is used to mount a volume of a folder/file in the host machine to a folder/file in the container.
+- `dockerfile` instruction in the `docker-compose.yaml` file is used to override the default path for the default `Dockerfile` used to build the custom image.
+- `docker attach <container_id>` command is used to attach the terminal to the STDIN, STDOUT and STDERR of the primary process, process with PID equal to `1`, running in the container.
