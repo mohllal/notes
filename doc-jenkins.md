@@ -110,3 +110,46 @@ Date Finished: ongoing
   ```
 
   This kind of pipeline that automatically deploys code all the way through to production can be considered an implementation of ***continuous deployment***.
+
+## Tutorials
+
+- `Jenkinsfile` is the foundation of "Pipeline-as-Code", which treats the continuous delivery pipeline as a part of the application to be versioned and reviewed like any other code.
+- Any Pipeline project in Blue Ocean, Jenkins actually creates this as a multibranch Pipeline project behind the scenes.
+- The Pipeline stub consists of the basic requirements for a valid Pipeline - i.e. an agent and a stages section, as well as a stage directive.
+- The `when` directive (along with their `branch` conditions) determine whether or not the stages (containing these when directive) should be executed. If a `branch` condition’s value (i.e. pattern) matches the name of the branch that Jenkins is running the build from, then the stage that contains this when and branch construct will be executed.
+
+- ```bash
+  docker run -u root --rm -d \
+  -p 8080:8080 -p 50000:50000 \
+  -v jenkins-data:/var/jenkins_home \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  jenkinsci/blueocean
+  ```
+  
+  This command is used to install Jenkins as a docker container
+
+  - `-u root`: runs Jenkins as root to allow Jenkins to spawn docker containers to execute stages in your pipelines.
+  - `-p 8080:8080`: maps port 8080 of the `jenkinsci/blueocean` container to port 8080 on the host machine.
+  - `-p 50000:50000`: ***JNLP-based*** Jenkins agents on other machines, which in turn interact with the `jenkinsci/blueocean` container through TCP port `50000` by default(acting as the "master" Jenkins server, or simply Jenkins ***master***).
+  - `-v jenkins-data:/var/jenkins_home`: maps the `/var/jenkins_home` directory in the container to the Docker volume with the name `jenkins-data`. If this volume does not exist, then this docker run command will automatically create the volume for you.
+  - `-v /var/run/docker.sock:/var/run/docker.sock` allows the `jenkinsci/blueocean` container to communicate with the Docker daemon, which is required if the `jenkinsci/blueocean` container needs to instantiate other Docker containers.
+
+- ```bash
+  wget -q -O - https://pkg.jenkins.io/debian/jenkins.io.key | sudo apt-key add -
+  sudo sh -c 'echo deb https://pkg.jenkins.io/debian-stable binary/ > /etc/apt/sources.list.d/jenkins.list'
+  sudo apt-get update
+  sudo apt-get install jenkins
+  ```
+
+  This command is used to install Jenkins through apt.
+- Jenkins can store the following types of credentials which are stored in an *encrypted* form on the master Jenkins instance (encrypted by the Jenkins instance ID) and are only handled in Pipeline projects via their ***credential IDs***.
+  - ***Secret text*** - a token such as an API token (e.g. a GitHub personal access token).
+  - ***Username and password*** - which could be handled as separate components or as a colon separated string in the format username:password (read more about this in Handling credentials).
+  - ***Secret file*** - which is essentially secret content in a file,
+  - ***SSH Username with private key*** - an SSH public/private key pair,
+  - ***Certificate*** - a PKCS#12 certificate file and optional password, or
+  - ***Docker Host Certificate Authentication*** credentials.
+- Credentials can be added to Jenkins by any Jenkins user who has the ***Credentials > Create permission*** (set through Matrix-based security).
+- Jenkins credentials' scopes:
+  - ***Global*** - if the credential to be added is for a Pipeline project/item.
+  - ***System*** - if the credential to be added is for the Jenkins instance itself to interact with system administration functions, such as email authentication, agent connection, etc.
