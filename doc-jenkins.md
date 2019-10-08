@@ -11,7 +11,7 @@ Date Finished: ongoing
 ## Guided Tour
 
 - *Jenkins pipeline* is a suite of plugins which supports implementing and integrating continuous delivery pipelines into Jenkins.
-- A continuous delivery pipeline is an automated expression of your process for getting software from version control right through to your users and customers.
+- A continuous delivery pipeline is an automated expression of the process for getting software from version control right through to the users and customers.
 - The definition of a *Jenkins Pipeline* is typically written into a text file called a ***Jenkinsfile*** which in turn is checked into a project’s source control repository.
 - Pipelines are made up of multiple steps that allow you to build, test and deploy applications. A *step* is like a single command which performs a single action. When a step succeeds it moves onto the next step. When a step fails to execute correctly the Pipeline will fail.
 - The `sh` step is used to execute a shell command in a Pipeline.
@@ -128,7 +128,7 @@ Date Finished: ongoing
   
   This command is used to install Jenkins as a docker container
 
-  - `-u root`: runs Jenkins as root to allow Jenkins to spawn docker containers to execute stages in your pipelines.
+  - `-u root`: runs Jenkins as root to allow Jenkins to spawn docker containers to execute stages in the pipelines.
   - `-p 8080:8080`: maps port 8080 of the `jenkinsci/blueocean` container to port 8080 on the host machine.
   - `-p 50000:50000`: ***JNLP-based*** Jenkins agents on other machines, which in turn interact with the `jenkinsci/blueocean` container through TCP port `50000` by default(acting as the "master" Jenkins server, or simply Jenkins ***master***).
   - `-v jenkins-data:/var/jenkins_home`: maps the `/var/jenkins_home` directory in the container to the Docker volume with the name `jenkins-data`. If this volume does not exist, then this docker run command will automatically create the volume for you.
@@ -153,3 +153,49 @@ Date Finished: ongoing
 - Jenkins credentials' scopes:
   - ***Global*** - if the credential to be added is for a Pipeline project/item.
   - ***System*** - if the credential to be added is for the Jenkins instance itself to interact with system administration functions, such as email authentication, agent connection, etc.
+
+## Pipeline
+
+- A *continuous delivery* (CD) pipeline is an ***automated expression*** of the process for getting software from version control right through to users and customers. This process involves building the software in a reliable and repeatable manner, as well as progressing the built software (called a "***build***") through multiple stages of *testing* and *deployment*.
+- A *Jenkinsfile* can be written using two types of syntax - ***Declarative*** and ***Scripted***.
+- features of Pipeline:
+  - ***Code***: Pipelines are implemented in code and typically checked into source control, giving teams the ability to edit, review, and iterate upon their delivery pipeline.
+  - ***Durable***: Pipelines can survive both planned and unplanned restarts of the Jenkins master.
+  - ***Pausable***: Pipelines can optionally stop and wait for human input or approval before continuing the Pipeline run.
+  - ***Versatile***: Pipelines support complex real-world CD requirements, including the ability to fork/join, loop, and perform work in parallel.
+  - ***Extensible***
+- Pipeline can be considered as a form of chaining Freestyle Jobs together to perform sequential tasks.
+- A ***Pipeline*** is a user-defined model of a CD pipeline. A Pipeline’s code defines the entire build process, which typically includes stages for building an application, testing it and then delivering it.
+- A ***node*** is a machine which is part of the Jenkins environment and is capable of executing a Pipeline.
+- A ***stage*** block defines a conceptually distinct subset of tasks performed through the entire Pipeline (e.g. *Build*, *Test* and *Deploy* stages).
+- A ***step*** is a single task. Fundamentally, a step tells Jenkins what to do at a particular point in time (or "step" in the process).
+- In *Declarative* Pipeline syntax, the `pipeline` block defines all the work done throughout the entire Pipeline.
+- In *Scripted* Pipeline syntax, one or more `node` blocks do the core work throughout the entire Pipeline.
+- Jenkins uses the name of the Pipeline to create directories on disk. Pipeline names which include spaces may uncover bugs in scripts which do not expect paths to contain spaces.
+- To access the ***global variables*** in Jenkins use this format `${VAR_NAME}` with *double quotes* because with *single quotes* the variables don't get processed.
+- In a ***Multibranch Pipeline project***, Jenkins automatically discovers, manages and executes Pipelines for branches which contain a Jenkinsfile in source control.
+- Pipeline supports adding custom *arguments* which are passed to Docker, allowing users to specify custom *Docker Volumes* to mount, which can be used for caching data on the agent between Pipeline runs.
+- Pipeline supports building and running a container from a ***Dockerfile*** in the source repository. Using the `agent { dockerfile true }` syntax will build a new image from a Dockerfile rather than pulling one from Docker Hub.
+- By default, Pipeline assumes that ***any configured agent is capable of running Docker-based Pipelines***. Pipeline provides a global option in the *Manage Jenkins page*, and on the Folder level, for specifying which agents (by Label) to use for running Docker-based Pipelines.
+- By default, the Docker Pipeline plugin will communicate with a ***local Docker*** daemon, typically accessed through `/var/run/docker.sock`. To select a non-default Docker server, such as with ***Docker Swarm***, the `withServer()` method should be used by passing a URI, and optionally the Credentials ID of a Docker Server Certificate Authentication pre-configured in Jenkins.
+- By default the Docker Pipeline integrates assumes the default Docker Registry of ***Docker Hub***. In order to use a ***custom Docker Registry***, users of Scripted Pipeline can wrap steps with the `withRegistry()` method, passing in the custom Registry URL.
+- Jenkins can validate, or lint, a ***Declarative Pipeline*** from the command line before actually running it. This can be done using a ***Jenkins CLI*** command or by making an *HTTP POST* request with appropriate parameters.
+
+```bash
+# ssh (Jenkins CLI)
+# JENKINS_SSHD_PORT=[sshd port on master]
+# JENKINS_HOSTNAME=[Jenkins master hostname]
+ssh -p $JENKINS_SSHD_PORT $JENKINS_HOSTNAME declarative-linter < Jenkinsfile
+```
+
+```bash
+# curl (REST API)
+# Assuming "anonymous read access" has been enabled on your Jenkins instance.
+# JENKINS_URL=[root URL of Jenkins master]
+# JENKINS_CRUMB is needed if your Jenkins master has CRSF protection enabled as it should
+JENKINS_CRUMB=`curl "$JENKINS_URL/crumbIssuer/api/xml?xpath=concat(//crumbRequestField,\":\",//crumb)"`
+
+curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" $JENKINS_URL/pipeline-model-converter/validate
+```
+
+- The ***Replay*** in ***Jenkins UI*** feature allows for quick modifications and execution of an existing Pipeline without changing the Pipeline configuration or creating a new commit.
