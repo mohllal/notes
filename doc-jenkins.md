@@ -211,3 +211,26 @@ curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" $JENKINS_URL/pipeli
   - ***Cloudy***: 41%-60% of runs passing.
   - ***Raining***: 21%-40% of runs passing.
   - ***Storm***: Less than 21% of runs passing.
+
+## Jenkinsfile
+
+- A Jenkinsfile can be written using two types of syntax - Declarative and Scripted. Declarative Pipeline provides:
+  - Richer syntactical features over Scripted Pipeline syntax.
+  - Designed to make writing and reading Pipeline code easier.
+
+> The `agent` directive, which is required, instructs Jenkins to allocate an executor and workspace for the Pipeline. Without an agent directive, not only is the Declarative Pipeline not valid, it would not be capable of doing any work!
+> The ***Jenkinsfile*** is not a replacement for an existing build tool such as GNU/Make, Maven, Gradle, etc, but rather can be viewed as a glue layer to bind the multiple phases of a project’s development lifecycle (build, test, deploy, etc) together.
+
+- The `archiveArtifacts` step captures the files built matching a specific pattern and saves them to the Jenkins master for later retrieval.
+- At a fundamental level, when there are test failures, it is useful to have Jenkins record the failures for reporting and visualization in the web UI.
+- Deployment can imply a variety of steps, depending on the project or organization requirements, and may be anything from publishing built artifacts to an Artifactory server, to pushing code to a production system.
+- Jenkins Pipeline exposes environment variables via the global variable env, which is available from anywhere within a ***Jenkinsfile*** as `${env.VAR_NAME}`. Here is a list of some important ones:
+  - `BUILD_ID`: The current build ID, identical to `BUILD_NUMBER`.
+  - `BUILD_TAG`: String of `jenkins-${JOB_NAME}-${BUILD_NUMBER}`.
+- The `environment` directive used in the top-level pipeline block will apply to all steps within the Pipeline.
+- The `credentials()` helper method (used within the `environment` directive) is used to retrieve and handle credentials. It supports *secret text*, *username and password*, as well as *secret file* credentials.
+- By convention, variable names for environment variables are typically specified in capital case, with individual words separated by underscores.
+- Using the `credentials()` helper method to retrieve a username and password credential will create two other environnement variables `VAR_USR` and `VAR_PSW` which refers to the username and password respectively.
+- Declarative Pipeline supports parameters out-of-the-box, allowing the Pipeline to accept user-specified parameters at runtime via the `parameters` directive.
+- The `stash` step allows capturing files matching an inclusion pattern for reuse within the same Pipeline. Once the Pipeline has completed its execution, ***stashed files are deleted*** from the Jenkins master.
+- The `unstash` will retrieve the named ***stash*** from the Jenkins master into the Pipeline’s current workspace.
