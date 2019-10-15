@@ -199,3 +199,15 @@ curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" $JENKINS_URL/pipeli
 ```
 
 - The ***Replay*** in ***Jenkins UI*** feature allows for quick modifications and execution of an existing Pipeline without changing the Pipeline configuration or creating a new commit.
+
+## Blue Ocean
+
+- Blue Ocean is a suit of Jenkins plugins which aims to deliver a great experience around Pipeline and be compatible with any freestyle jobs.
+- The first time a Pipeline is created in *Blue Ocean* for a specific Git server. *Blue Ocean* prompts for the server credentials to access its repositories. This is required since *Blue Ocean* can write *Jenkinsfile* to repositories directly.
+- A Pipeline can be generated from an existing ***Jenkinsfile*** in source control, or using the *Blue Ocean Pipeline editor* to create a new Pipeline (as a Jenkinsfile that will be committed to source control).
+- *Blue Ocean* represents the overall health of a Pipeline/item or one of its repository’s branches using ***weather icons***, which change depending on the number of recent builds that have passed:
+  - ***Sunny***: More than 80% of runs passing.
+  - ***Partially Sunny***: 61%-80% of runs passing.
+  - ***Cloudy***: 41%-60% of runs passing.
+  - ***Raining***: 21%-40% of runs passing.
+  - ***Storm***: Less than 21% of runs passing.
