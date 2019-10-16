@@ -234,3 +234,25 @@ curl -X POST -H $JENKINS_CRUMB -F "jenkinsfile=<Jenkinsfile" $JENKINS_URL/pipeli
 - Declarative Pipeline supports parameters out-of-the-box, allowing the Pipeline to accept user-specified parameters at runtime via the `parameters` directive.
 - The `stash` step allows capturing files matching an inclusion pattern for reuse within the same Pipeline. Once the Pipeline has completed its execution, ***stashed files are deleted*** from the Jenkins master.
 - The `unstash` will retrieve the named ***stash*** from the Jenkins master into the Pipeline’s current workspace.
+
+## Pipeline Syntax
+
+- Declarative Pipelines must be enclosed within a `pipeline` block.
+- ***Sections*** in Declarative Pipeline typically contain one or more ***Directives*** or ***Steps***.
+- Some important ***sections***:
+  - `agent`: Specifies where the entire Pipeline, or a specific stage, will execute in the Jenkins environment depending on where the `agent` section is placed.
+  - `post`: Defines one or more additional steps that are run upon the completion of a Pipeline’s or stage’s run (depending on the location of the post section within the Pipeline).
+  - `stages`: Defines a sequence of one or more stage directives, the stages section is where the bulk of the "work" described by a Pipeline will be located.
+  - `steps`: Defines a series of one or more steps to be executed in a given stage directive.
+- Some important ***directives***:
+  - `environment`: Specifies a sequence of key-value pairs which will be defined as environment variables for the all steps, or stage-specific steps, depending on where the environment directive is located within the Pipeline.
+  - `options`: Allows configuring Pipeline-specific options from within the Pipeline itself.
+  - `parameters`: Provides a list of parameters which a user should provide when triggering the Pipeline.
+  - `triggers`: Defines the automated ways in which the Pipeline should be re-triggered.
+  - `stage`: Contain a steps section, an optional agent section, or other stage-specific directives.
+  - `tools`: Defines tools to auto-install and put on the `PATH`.
+  - `input`: Allows prompting for input, using the input step.
+  - `when`: Allows the Pipeline to determine whether the stage should be executed depending on the given condition.
+
+- Stages in Declarative Pipeline may declare a list of nested stages to be run within them in sequential order. A `stage` directive must have one and only one of `steps`, `parallel`, or `stages`, the last for sequential stages.
+- Stages in Declarative Pipeline may declare a number of nested stages within a `parallel` block, which will be executed in parallel. The nested stages cannot contain further parallel stages themselves, but otherwise behave the same as any other stage, including a list of sequential stages within stages.
