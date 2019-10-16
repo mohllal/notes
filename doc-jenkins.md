@@ -4,7 +4,7 @@
 
 Date Started: Saturday, August 30, 2019
 
-Date Finished: ongoing
+Date Finished: Wednesday, October 16, 2019
 
 > Jenkins is a self-contained, open source automation server which can be used to automate all sorts of tasks related to building, testing, and delivering or deploying software.
 
