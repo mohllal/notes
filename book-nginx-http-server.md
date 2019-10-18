@@ -6,7 +6,7 @@ Date Started: Saturday, August 31, 2019
 
 Date Finished: ongoing
 
-### Chapter 1: Downloading and Installing Nginx
+## Chapter 1: Downloading and Installing Nginx
 
 - Nginx is faster by making use of asynchronous sockets, Nginx does not spawn processes as many times as it receives requests.
 
@@ -68,7 +68,7 @@ Date Finished: ongoing
 
 - Most Linux-based operating systems to date use a System-V style init daemon. In other words, their startup process is managed by a daemon called init, which functions in a way that is inherited from the old System V Unix-based operating system.
 
-### Chapter 2: Basic Nginx Configuration
+## Chapter 2: Basic Nginx Configuration
 
 - The Nginx configuration file can be described as a list of directives organized in a
 logical structure. The entire behavior of the application is defined by the values that
@@ -122,7 +122,7 @@ simultaneously.
   - [Autobench](https://github.com/menavaur/Autobench)
   - [OpenWebLoad](http://openwebload.sourceforge.net/)
 
-### Chapter 3: HTTP Configuration
+## Chapter 3: HTTP Configuration
 
 - The ***HTTP Core module*** is the component that contains all the fundamental blocks,
 directives, and variables of the HTTP server. It's largest of all the standard Nginx modules and enabled by default.
@@ -184,3 +184,76 @@ applies (even though the first one matches), because it has priority over the fi
   - `location` blocks with the ^~ modifier: If the specified string matches the beginning of the requested URI, Nginx retains the `location` block.
   - `location` blocks with ~ or ~* modifier: If the regular expression matches the requested URI, Nginx retains the `location` block.
   - `location` blocks with no modifier: If the specified string matches the beginning of the requested URI, Nginx retains the `location` block.
+
+## Chapter 4: Module Configuration
+
+- URL rewriting is a key element of ***Search Engine Optimization (SEO)***. URL rewriting is performed by the rewrite directive, which accepts a pattern followed by the replacement URI.
+- Once rewritten, the URI is matched against the location blocks in order to find the configuration that should be applied to the request.
+- There are two different types of internal requests:
+  - ***Internal redirects***: Nginx redirects the client requests internally.
+  - ***Sub-requests***: These are additional requests that are triggered internally to generate content that is complementary to the main request.
+- The number of internal redirect cycles is restricted to 10. Anything past this limit and Nginx will produce a 500 Internal Server Error.
+- The purpose of ***SSI*** module is for the server to parse documents before sending the response to the client in a fashion somewhat similar to PHP or other preprocessors.
+- The `rewrite` directive allows rewriting the URI of the current request, thus resetting the treatment of the said request.
+- The `break` directive is used to prevent further rewrite directives. Past
+this point, the URI is fixed and cannot be altered.
+- The `return` directive interrupts the processing of the request, and returns the specified HTTP status code or specified text.
+- The `set` directive initializes or redefines a variable. Note that some variables cannot be redefined, for example, you are not allowed to alter $uri.
+- The `rewrite_log` directive issues log messages for every operation performed by the rewrite engine at the notice error level.
+- ***SSI*** or Server Side Includes, is actually a sort of server-side programming language interpreted by Nginx. Its name originates from the fact that the most-used functionality of the language is the include command.
+- The `ssi` directive enables parsing files for SSI commands. Nginx only parses the files corresponding to the MIME types selected with the `ssi_types` directive.
+- The ***Index*** module provides a simple directive named `index`, which defines the page that Nginx will serve by default if no filename is specified in the client request (in other words, it defines the website index page).
+- If Nginx cannot provide an index page for the requested directory, the default behavior is to return a ***403 Forbidden*** HTTP error page.
+- The `autoindex` directive enables an automatic listing of the files that are present in the requested directory.
+- The `autoindex_exact_size` directive if set to on, this directive ensures that the listing displays the file sizes in bytes. Otherwise, another unit is employed, such as KB, MB, or GB.
+- The `autoindex_format` directive enables to serve the directory index in different formats: ***HTML***, ***XML***, ***JSON***, or ***JSONP*** (by default, HTML is used).
+- The ***Log*** module controls the behavior of Nginx regarding the access logs. It allows analyzing the runtime behavior of web applications.
+- The `access_log` directive defines the access log file path, the format of entries in the access log by selecting a template name, or disables access logging.
+- The `log_format` directive defines a template to be utilized by the access_log directive, describing the contents that should be included in an entry of the access log.
+- The `$request_time` variable defines the total length of the request processing, in milliseconds.
+- The ***Auth_basic*** module enables the basic authentication functionality.
+- The `auth_basic` directive can be set to either off or a text message, usually referred to as ***authentication challenge*** or ***authentication realm***. This message is displayed by the web browsers in a username/password box when a client attempts to access the protected resource.
+- The `auth_basic_user_file` directive defines the path of the password file relative to the directory of the configuration file.
+- The `allow` and `deny` directives allow or deny access to a resource for a specific IP address or IP address range.
+- The ***Limit Connections*** module allows defining the maximum number of simultaneous connections to the server for a specific zone. If the limit is reached, all additional concurrent requests will be answered with a ***503 Service unavailable*** HTTP response.
+- The ***Auth_request*** module  used to allow or deny access to a resource based on the result of a sub-request. Nginx calls the URI that you specify via the auth_request directive: if the sub-request returns a 2XX response code (that is, HTTP/200 OK), access is allowed. If the sub-request returns a 401 or 403 status code, access is denied, and Nginx forwards the response code to the client. Should the backend return any other response code, Nginx will consider it to be an error and deny access to the resource.
+- The ***Addition*** module allows you (through simple directives) to add content before or after the body of the HTTP response.
+- The ***Substitution*** module allows to search and replace text directly from the response body.
+- The ***SSL*** module enables ***HTTPS*** support, ***HTTP over SSL/TLS*** in particular. It gives the option to serve secure websites by providing a certificate, a certificate key, and many other parameters.
+- The `ssl` directive enables HTTPS for the specified server. This directive is the equivalent of `listen 443 ssl`.
+- The `ssl_certificate` directive sets the path of the *PEM certificate*.
+- The `ssl_certificate_key` directive sets the path of the *PEM secret* key file.
+- The `ssl_client_certificate` directive sets the path of the client *PEM certificate*.
+- The `$ssl_protocol` variable indicates the protocol in use for the current request.
+- ***SSL Stapling***, also called ***Online Certificate Status Protocol (OCSP) Stapling***, is a technique that allows clients to easily connect and resume sessions to an SSL/TLS server without having to contact the Certificate Authority, thus reducing the SSL negotiation time.
+- In the case of high traffic websites, this can cause a huge stress on the CA servers. An intermediary solution was designed—Stapling. The OCSP record is obtained periodically from the CA by your server itself, and is stapled to exchanges with the client. The OCSP record is cached by your server for a period of up to 48 hours in order to limit communications with the CA.
+- ***Memcached*** is a daemon application that can be connected to via sockets. Its main purpose, as the name suggests, is to provide an efficient *distributed key/value memory caching system*. The Nginx ***Memcached module*** provides directives allowing you to configure access to the Memcached daemon.
+- Note that the Nginx Memcached module is only able to retrieve data from the cache; it does not store the results of requests. Storing data in the cache should be done by a server-side script. You just need to make sure to employ the same key-naming scheme in both your server-side scripts and the Nginx configuration.
+- The ***Gzip*** allows you to compress the response body with the Gzip algorithm before sending it to the client. To enable ***Gzip compression***, use the gzip directive (on or off) at the http, server, location, and even the if level (though that is not recommended).
+- The `gzip_comp_level` directive defines the compression level of the algorithm. The specified value ranges from 1 (low compression, faster for the CPU) to 9 (high compression, slower).
+- The `gzip_min_length` directive determine if the response body length is inferior to the specified value, it is not compressed.
+- The ***Gunzip filter*** module decompress a gzip-compressed response sent from the backend in order to serve it raw to the client.
+- The ***Image*** module provides image processing functionalities through the ***GD Graphics Library*** (also known as gdlib).
+- The `image_filter` directive applies a transformation on the image before sending it
+to the client. There are five options available:
+  - ***test***: Makes sure that the requested document is an image file, returns a ***415 Unsupported Media Type*** HTTP error if the test fails.
+  - ***size***: Composes a simple JSON response indicating information about the image such as the size and type.
+  - ***resize*** width height: Resizes the image to the specified dimensions.
+  - ***crop*** width height: Selects a portion of the image of the specified dimensions.
+  - ***rotate*** 90 | 180 | 270: Rotates the image by the specified angle (in degrees).
+- The Nginx ***XSLT*** module allows you to apply an XSLT transform on an XML file or response received from a backend server (proxy, FastCGI, and so on) before serving the client.
+- The ***Browser*** module parses the User-Agent HTTP header of the client request in order to establish values for some variables.
+- The ***Geo*** provides a functionality that is quite similar to the map directive—affecting a variable based on the client data (in this case, the IP address).
+- The ***GeoIP*** provides accurate geographical information about your visitors by making use of the ***MaxMind*** (http://www.maxmind.com) GeoIP binary databases.
+- The ***Real IP*** module provides one simple feature—it replaces the client IP address by the one specified in the ***X-Real-IP*** HTTP header for clients that visit your website behind a proxy, or for retrieving IP addresses from the proper header if Nginx is used as a backend server.
+- Firstly insert the real_ip_header directive that defines the HTTP header to be exploited—either ***X-Real-IP*** or ***X-Forwarded-For***. The second step is to define the trusted IP addresses, in other words, the clients that are allowed to make use of those headers.
+- The ***Split Clients*** module provides a resource-efficient way to split the visitor base into subgroups based on the percentages that you specify. To distribute the visitors into one group or another, Nginx hashes a value that you provide (such as the visitor's IP address, cookie data, query arguments, and so on), and decides which group the visitor should be affected to.
+- The ***Secure link*** module is totally independent from the SSL module. It provides  basic protection by checking the presence of a specific hash in the URL before allowing the user to access a resource.
+- The ***Stub status*** module was designed to provide information about the current state of the server, such as the amount of active connections, the total handled requests, and more. To activate it, place the stub_status directive in a location block. All requests matching the `location` block will produce the status page.
+- The ***HTTP Degradation*** module configures the server to return an error page when the server runs low on memory. It works by defining a memory amount that is to be considered low, and then specifies the locations for which to enable the degradation check.
+- The ***Google-perftools*** module interfaces the Google Performance Tools profiling mechanism for the Nginx worker processes. The tool generates a report based on the performance analysis of the executable code.
+- To integrate a third-party module into the Nginx build:
+  - Download the .tar.gz archive associated with the module that you wish
+to download.
+  - Extract the archive with the following command: `tar xzf module.tar.gz`.
+  - Configure your Nginx build with the following command: `./configure --add-module=/module/source/path […]`
