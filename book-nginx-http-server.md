@@ -311,3 +311,9 @@ to download.
   ```
   
   If the file requested by the client is over 8k (the value specified with the `directio` directive), `aio` will be used. Otherwise, the file will be sent via `sendfile`.
+
+## Chapter 10: Troubleshooting
+
+- Reload your server instead of restarting it—by preferring `service nginx reload` over `service nginx restart` (`nginx -s reload` instead of `nginx -s stop && nginx`), as it will keep the existing connections alive, and thus won't interrupt ongoing file downloads.
+- The ***400 Bad Request*** error is caused by an overly large header field sent by the client. Most of the time, this occurs when cookie data exceeds a certain size. In order to prevent further trouble, you may simply increase the value of the `large_client_header_buffers` directive in order to allow larger cookie data size: `large_client_header_buffers 4 16k;`
+- The `if` block should ideally be employed for simple situations, as its behavior might be surprising in some cases. Apart from the fact that the if statements cannot be nested.
