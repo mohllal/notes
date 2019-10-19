@@ -257,3 +257,57 @@ to the client. There are five options available:
 to download.
   - Extract the archive with the following command: `tar xzf module.tar.gz`.
   - Configure your Nginx build with the following command: `./configure --add-module=/module/source/path […]`
+
+## Chapter 8: Introducing Load Balancing and Optimization
+
+- The concept of ***load balancing*** consists of distributing the workload (CPU load, hard disk load, or other forms) across several servers in a manner that is completely transparent to your visitors.
+- There are several techniques available for achieving load balancing, the simplest of which is ***DNS load balancing***. Multiple servers IP addresses are attached to a single domain name and the operating system of the visitors will select one of these IP addresses by following a simple ***round-robin algorithm***, thus ensuring that on a global scale, all your servers receive more or less the same amount of traffic.
+- Issues of *DNS load balancing*:
+  - What if the IP address selected by a visitor's operating system points to a server that is temporarily unavailable?
+  - What if your architecture is made up of several types of servers, some of which are capable of handling more requests than the others?
+  - What if a visitor connects to a particular server and logs in to their user account, only to get switched to another server ten minutes later, and thus losing their session data? Which is know as the ***session affinity*** problem.
+- Any directive that ends with `_pass`, such as `proxy_ pass`, `fastcgi_pass`, or `memcached_pass`, accepts a reference to a group of servers.
+- Example for the ***Upstream*** module:
+  
+  ```Nginx
+  http {
+    upstream MyUpstream {
+      server 10.0.0.201;
+      server 10.0.0.202;
+      server 10.0.0.203;
+    }
+    […]
+  }
+  
+  ```Nginx
+  server {
+    server_name example.com;
+    listen 80;
+    root /home/example.com/www;
+
+    # Proxy all requests to the MyUpstream server group
+    proxy_pass http://MyUpstream;
+    […]
+  }
+  ```
+
+- By default, servers in the `upstream` block have a *weight of 1*, unless you specify otherwise. Such a configuration enables you to give more importance to particular servers: ***the higher their weight, the more requests they will receive from Nginx***.
+- Nginx includes a mechanism that will verify the state of the servers in a group:
+***if a server doesn't respond in time, the request will be re-sent to the next server in the group***.
+- The `fail_timeout=N` flag where `N` is the number of seconds before a request is considered to have failed. The `max_fails=N` flag where `N` is the number of attempts that should be performed on a server before Nginx gives up and switches to the next server. By default, Nginx only tries once.
+- The `ip_hash` directive instructs Nginx to calculate a hash from the first three bytes of the client's IPv4 address (or the full IPv6 address), and based on that hash, keep the client assigned to a particular server. As long as the client's IP address remains the same, Nginx will always forward requests to the same server in the upstream group.
+
+> In the case of websites that require heavy I/O operations, such as file uploads or downloads, the asynchronous architecture of Nginx can present a certain disadvantage: while the master process is able to absorb the incoming connections asynchronously, the worker processes can be blocked for relatively long periods of time by certain tasks (the most common one being reading data from hard disk drives or network drives).
+
+- The basic principle behind the ***thread pool*** solution is that instead of reading files synchronously within the worker process, ***Nginx delegates the operation to a thread***. This immediately liberates the worker process, which can then move on to the next request in the queue. Whenever the thread finishes performing the operation, the worker process finalizes and sends the response to the client.
+- The first step of the configuration is to define a thread pool with the `thread_pool` directive at the root of the configuration file like this `thread_pool name threads=N [max_queue=Q];`. And in `location` blocks that require it, simply insert the `aio` directive and specify the thread pool name.
+  
+  ```Nginx
+  location /downloads/ {
+    aio threads;
+    directio 8k;
+    sendfile on;
+  }
+  ```
+  
+  If the file requested by the client is over 8k (the value specified with the `directio` directive), `aio` will be used. Otherwise, the file will be sent via `sendfile`.
