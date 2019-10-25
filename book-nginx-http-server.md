@@ -277,7 +277,7 @@ to download.
       server 10.0.0.203;
     }
     […]
-  }
+  }```
   
   ```Nginx
   server {
@@ -311,6 +311,36 @@ to download.
   ```
   
   If the file requested by the client is over 8k (the value specified with the `directio` directive), `aio` will be used. Otherwise, the file will be sent via `sendfile`.
+
+## Chapter 9: Case Studies
+
+> Implementing HTTPS support is becoming an increasingly important requirement in the modern Web. Visitors no longer trust online stores that don't secure communications, and all of the major actors of the industry are slowly eradicating plain-text transmissions
+
+- There are two types of SSL certificates:
+  - Self-signed certificates: you can generate a certificate all by yourself on your own server
+  - Certificates signed by a trusted certificate authority offer an additional level of security: a third party ascertains the authenticity of the server.
+- Obtaining SSL certificate steps:
+  - Generate a ***2048-bit RSA*** private key using `openssl` tool: `openssl genrsa –out <domain_name>.key 2048`.
+  - Generate a ***Certificate Signing Request*** file which will be transmitted to the certificate authority: `openssl req -new -key <domain_name>.key -out <domain_name>.csr`.
+  - Upload the `.csr` file (or its contents) to the ***Certificate Authority*** and download two files from your Certificate Authority: the site's certificate file `(.crt)`, and an additional certificate file containing information relative to the Certificate Authority itself.
+  - Concatenate the two files into one. The order is important: the site's certificate first, followed by your CA's certificate: `cat site_certificate.crt certificate_authority.crt > <domain_name>.crt`.
+  - Open the existing server block for the domain, and append the following directives below the listen 80:
+  
+  ```Nginx
+  # Listen on port 443 using SSL and make it the default server
+  listen 443 default_server ssl;
+  
+  # Specify the path of your .crt and .key files
+  ssl_certificate /etc/ssl/private/example.com.crt;
+  ssl_certificate_key /etc/ssl/private/example.com.key;
+  
+  # Enable session caching, increase session timeout
+  ssl_session_cache shared:SSL:20m;
+  ssl_session_timeout 60m;
+  
+  # Disable SSL in favor of TLS (safer)
+  ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+  ```
 
 ## Chapter 10: Troubleshooting
 
