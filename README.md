@@ -33,5 +33,11 @@ I'll try to stick to this structure as much as I can
   - [JavaScript: The Good Parts](book-javaScript-the-good-parts.md)
   - [Clean Code: A Handbook of Agile Software Craftsmanship](book-clean-code.md)
   - [Nginx HTTP Server, 3rd Edition](book-nginx-http-server.md)
+  - [The Docker Book](book-the-docker-book.md)
+
 - Courses
   - [Foundations of Programming: Object-Oriented Design](course-object-oriented-design.md)
+  - [Docker and Kubernetes: The Complete Guide](course-docker-and-kubernetes.md)
+
+- Documentations
+  - [Jenkins Documentation](doc-jenkins.md)
