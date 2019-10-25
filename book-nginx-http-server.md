@@ -4,7 +4,7 @@ By: Clément Nedelcu. [Purchase the book](https://www.packtpub.com/networking-an
 
 Date Started: Saturday, August 31, 2019
 
-Date Finished: ongoing
+Date Finished: Friday, October 25, 2019
 
 ## Chapter 1: Downloading and Installing Nginx
 
