@@ -6,7 +6,7 @@ Date Started: Tuesday, September 24, 2019
 
 Date Finished: ongoing
 
-### Chapter 1: Introduction
+## Chapter 1: Introduction
 
 - Container virtualization is often called operating system-level virtualization. Container technology allows multiple isolated user space instances to be run on a single host.
 - In Docker, having modern Linux kernel features, such as control groups and namespaces, means that containers can have strong isolation, their own network and storage stacks, as well as resource management capabilities to allow friendly co-existence of multiple containers on a host.
@@ -30,7 +30,86 @@ or daemon, which, in turn, does all the work. Docker ships with a command line c
   - Docker Compose: which allows to run stacks of containers to represent application stacks.
   - Docker Swarm: which allows to create clusters of containers, called swarms, that allow you to run scalable workloads.
 
-### Chapter 2: Installing Docker
+## Chapter 2: Installing Docker
 
 - Docker runs as a root-privileged daemon process to allow it to handle operations that can’t be executed by normal users (e.g., mounting filesystems).
 - If a group named `docker` exists on our system, Docker will apply ownership of the Unix socket at `/var/run/docker.sock` to that group. Hence, any user that belongs to the `docker` group can run Docker without needing to use the `sudo` command.
+
+## Chapter 3: Getting Started with Docker
+
+- Docker has a ***client-server*** architecture. It has two binaries, the Docker server provided via the `dockerd` binary and the `docker` binary, that acts as a client. As a client, the `docker` binary passes requests to the ***Docker daemon*** (e.g., asking it to return information about itself), and then processes those requests when they are returned.
+- Each Docker container has a network, IP address, and a bridge interface to talk to the local host.
+- There are three ways containers can be identified: a ***short UUID*** (like `f7cbdac22a02`), a ***longer UUID*** (like `f7cbdac22a02e03c9438c729345e54db9d20cfa2ac1fc3494b6eb60872e74778`), and a ***name*** (like `gray_cat`).
+- The `docker run` command with the `-d` flag tells Docker to detach the container to the background.
+- To view the logs of a container without having to read the whole log file: `docker logs --tail 0 -f -t <docker_id>`.
+- The `--log-driver` option controls the logging driver used by your daemon and container. There are a variety of options including the default `json-file` which provides the behavior we’ve just seen using the docker logs command.
+- The `docker top` command is used to inspect the processes running inside the container.
+- The `docker stats` command is used to shows statistics for one or more running Docker containers.
+- The `--restart=always` flag checks for the container’s exit code and makes a decision whether or not to restart it.
+- The `docker inspect` command will interrogate the container and return its configuration information, including names, commands, networking configuration, and a wide variety of other useful data.
+- The ***/var/lib/docker*** directory holds the images, containers, and container configuration. All the containers in the ***/var/lib/docker/containers*** directory.
+- The `docker rm -f ``sudo docker ps -a -q`` ` command will list all of the current containers using the `docker ps` command. The `-a` flag lists all containers, and the `-q` flag only returns the container IDs rather than the rest of the information about your containers. This list is then passed to the `docker rm` command, which deletes each container. The `-f` flag force removes any running containers.
+
+## Chapter 4: Working with Docker images and repositories
+
+- A Docker image is made up of ***filesystems*** layered over each other. At the base is a boot filesystem, `bootfs`, which resembles the typical Linux/Unix boot filesystem. A Docker user will probably never interact with the boot filesystem. When a container has booted, it is moved into memory, and the boot filesystem is unmounted to free up the ***RAM*** used by the `initrd` disk image.
+- In Docker world, the root filesystem stays in ***read-only mode***, and Docker takes advantage of a ***union mount*** to add more read-only filesystems onto the root filesystem. The union mount overlays the filesystems on top of one another so that the resulting filesystem may contain files and subdirectories from any or all of the underlying filesystems.
+- Images can be layered on top of one another. The image below is called the parent image and you can traverse each layer until you reach the bottom of the image stack where the final image is called the base image.
+- When a container is launched from an image, Docker mounts a ***read-write*** filesystem on top of any layers below. This is where whatever processes we want our Docker container to run will execute.
+- As changes occur, they are applied to the empty read-write layer; for example, if a change to file has happened, then that file will be copied from the read-only layer below into the readwrite layer. The read-only version of the file will still exist but is now hidden underneath the copy.
+- Images live inside repositories, and repositories live on registries. The default registry is the public registry managed by Docker, Inc., [Docker Hub](https://hub.docker.com).
+- Each image tag marks together a series of image layers that represent a specific image. This allows us to store more than one image inside a repository.
+- There are two types of repositories: ***user repositories***, which contain images contributed by Docker users, and ***top-level repositories***, which are controlled by the people behind Docker.
+- The `docker search` command is used search all of the publicly available images on Docker Hub.
+- There are two ways to create a Docker image:
+  - Via the `docker commit` command.
+  - Via the `docker build` command with a `Dockerfile`.
+- The `docker login` command is used to sign into the Docker Hub and and store the credentials for future use.
+- The `docker logout` command is used to log out from a registry server.
+- The `docker commit <container_id> <custom_image>` command is used to create a new custom image from a running container after changing its state. Of note is that the `docker commit` command only commits the differences between the image the container was created from and the current state of the container. This means updates are lightweight.
+- The `-m` option which allows us to provide a commit message explaining our new image. And the `-a` option allows to list the author of the image.
+- Docker will upload the ***build context***, as well as any files and directories contained in build context (the folder that contains the Dockerfile), to our Docker daemon when the build is run.
+- The first instruction in a `Dockerfile` must be `FROM`. The `FROM` instruction specifies an existing image that the following instructions will operate on; this image is called the ***base image***.
+- The `MAINTAINER` instruction, which tells Docker who the author of the image is and what their email address is. This is useful for specifying an owner and contact for an image.
+- The `EXPOSE` instruction, which tells Docker that the application in this container will use this specific port on the container. That doesn’t mean you can automatically access whatever service is running on that port on the container. For security reasons, ***Docker doesn’t open the port automatically***.
+- If a file named `.dockerignore` exists in the root of the build context then it is interpreted as a newline-separated list of exclusion patterns. Much like a `.gitignore` file it excludes the listed files from being treated as part of the build context, and therefore prevents them from being uploaded to the Docker daemon.
+- Using the `--no-cache` flag with the `docker build` command will make Docker skip the cache.
+- Specifying the `ENV` instruction to set an environment variable called `REFRESHED_AT`, showing when the template was last updated. When you want to refresh the build, you can change the date in the `ENV` instruction. Docker then resets the cache when it hits that `ENV` instruction and runs every subsequent instruction as a new without relying on the cache.
+- The `docker history` command is used to drill down into how the image was created.
+- The `CMD` instruction specifies the command to run when a container is launched. It is similar to the `RUN` instruction, but rather than running the command when the container is being built, it will specify the command to run when the container is launched.
+- Only one `CMD` instruction in a `Dockerfile`. If more than one is specified, then the last `CMD` instruction will be used.
+- Any arguments we specify on the `docker run` command line will be passed as arguments to the command specified in the `ENTRYPOINT`.
+- The `WORKDIR` instruction provides a way to set the working directory for the container and the `ENTRYPOINT` and/or `CMD` to be executed when a container is launched from the image.
+- The `ENV` instruction is used to set environment variables during the image build process.
+- The `USER` instruction specifies a user that the image should be run as.
+- The `VOLUME` instruction adds volumes to any container created from the image. A volume is a specially designated directory within one or more containers that bypasses the Union File System to provide several useful features for persistent or shared data.
+- The `ADD` instruction adds files and directories from our build environment into our
+image.
+- The `COPY` instruction is closely related to the `ADD` instruction. The key difference is that the `COPY` instruction is purely focused on copying local files from the build context and does not have any extraction or decompression capabilities. You can't copy anything that is outside of this directory, because the build context is uploaded to the Docker daemon, and the copy takes place there. Anything outside of the build context is not available. The destination should be an absolute path inside the container.
+- The `LABEL` instruction adds metadata to a Docker image. The metadata is in the form of ***key/value*** pairs.
+- The `STOPSIGNAL` instruction instruction sets the system call signal that will be sent to the container when you tell it to stop. This signal can be a valid number from the kernel syscall table, for instance 9, or a signal name in the format `SIGNAME`, for instance `SIGKILL`.
+- The `ARG` instruction defines variables that can be passed at build-time via the `docker build` command using the `--build-arg` flag.
+- The `HEALTHCHECK` instruction tells Docker how to test a container to check that it is still working correctly. When a container has a health check specified, it has a ***health status*** in addition to its ***normal status***.
+- The `docker inspect --format '{{.State.Health.Status}}'` command is used to see the state of the health check of a running container. The health check state and related data is stored in the `.State.Health` namespace and includes current state as well as a history of previous checks and their output.
+- ***Automated Builds*** is the action of connecting a ***GitHub*** or ***BitBucket*** repository containing a `Dockerfile` to the Docker Hub. When a push to this repository happened, an image build will be triggered and a new image created. This was previously also known as a ***Trusted Build***.
+- The `docker rmi <image_tag>` command deletes an image.
+- Docker has ***open-sourced*** the code they use to run a ***Docker registry***, thus allowing us to build our own internal registry. The registry does not currently have a user interface and is only made available as an ***API service***.
+- The `docker tag <source_image> <destination_image>` command is used to tag an existing image with another tag.
+
+## Chapter 5: Testing with Docker
+
+- Volumes are specially designated directories within one or more containers that ***bypass the layered Union File System*** to provide persistent or shared data for Docker. This means that changes to a volume are made directly and bypass the image. They will not be included when we commit or build an image.
+- The `-v` option works by specifying a directory or mount on the local host separated from the directory on the container with a `:`. If the container directory doesn’t exist Docker will create it. Specifying the ***read/write*** status of the container directory is done by adding either `rw` or `ro` after container directory.
+- There are two ways to make one container communicate with another one:
+  - Through Docker’s own ***internal network***.
+  - Using ***Docker Networking*** and the `docker network` command.
+- The more realistic method for connecting containers is ***Docker Networking***:
+  - Docker Networking can connect containers to each other ***across different hosts***.
+  - Containers connected via Docker Networking can be stopped, started or restarted without needing to update connections.
+  - There is no need to create a container before you can connect to it. You also don’t need to worry about the order in which you run containers and you get internal container name resolution and discovery inside the network.
+- Every Docker container is ***assigned an IP address***, provided through an interface created when we installed Docker. That interface is called `docker0`. The `docker0` interface has an RFC1918 private IP address in the `172.16`-`172.30` range. This address `172.17.0.1`, will be the gateway address for the Docker network and all our Docker containers.
+- The `docker0` interface is a virtual Ethernet bridge that connects our containers and the local host network. Every time Docker creates a container, it creates ***a pair of peer interfaces*** that are like opposite ends of a pipe (i.e., a packet sent on one will be received on the other). It gives ***one of the peers to the container*** to become its `eth0` interface and keeps the other peer, with a unique name like `vethec6` out on the host machine.
+- By binding every `veth*` interface to the `docker0` bridge, Docker creates a ***virtual subnet*** shared ***between the host machine and every Docker container***.
+- The `docker network` command creates a local, bridged network much like the `docker0` network. The `--net` flag specifies a network to run the container inside.
+- A Docker network will also add the network name as a domain suffix for the network, any host in the network can be resolved by hostname.network_name.
+- The `docker network disconnect` command is used to disconnect a container from a network.
