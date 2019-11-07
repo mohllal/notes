@@ -113,3 +113,12 @@ image.
 - The `docker network` command creates a local, bridged network much like the `docker0` network. The `--net` flag specifies a network to run the container inside.
 - A Docker network will also add the network name as a domain suffix for the network, any host in the network can be resolved by hostname.network_name.
 - The `docker network disconnect` command is used to disconnect a container from a network.
+
+## Chapter 6: Building services with Docker
+
+- A volume is a specially designated directory within one or more containers that bypasses the Union File System to provide several useful features for persistent or shared data:
+  - Volumes can be shared and reused between containers.
+  - A container doesn’t have to be running to share its volumes.
+  - Changes to a volume are made directly.
+  - Changes to a volume will not be included when you update an image.
+  - Volumes persist even when no containers use them.
