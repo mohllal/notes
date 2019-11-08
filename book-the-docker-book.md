@@ -122,3 +122,23 @@ image.
   - Changes to a volume are made directly.
   - Changes to a volume will not be included when you update an image.
   - Volumes persist even when no containers use them.
+
+## Chapter 8: Using the Docker API
+
+- There are three specific APIs in the Docker ecosystem.
+  - The ***Registry API*** - provides integration with the Docker registry, which stores our images.
+  - The ***Docker Hub API*** - provides integration with the Docker Hub.
+  - The ***Docker Remote API*** - provides integration with the Docker daemon.
+- By default, the Docker daemons binds to a socket, `unix:///var/run/docker.sock`, on the host on which it is running. The daemon runs with ***root privileges*** so as to have the access needed to manage the appropriate resources.
+- The `-H` flag to specify the Docker host. Docker will also honor the `DOCKER_HOST` environment variable rather than requiring the continued use of the `-H` flag. Using `export DOCKER_HOST="tcp://docker.example.com:2375"`.
+- `curl --unix-socket /var/run/docker.sock <endpoint> | python3 -mjson.tool`.
+- The `http://docker/info` endpoint: Returns info about the Docker daemon running in the host. Much like the `docker info` command.
+- The `http://docker/images/json` endpoint: Returns a list of all images on the Docker daemon. Much like the `docker images` command.
+- The `http://docker/images/<image_id>/json` endpoint: Returns info about a specific image via its ID. Much like the `docker inspect` command.
+- The `http://docker/images/search?term=<search_term>` endpoint: Returns a list of all images on the Docker Hub that contain a specific term. Much like the `docker search` command.
+- The `http://docker/containers/json` endpoint: Returns a list of all running containers on the Docker daemon. Much like the `docker ps` command. To see running and stopped containers, we can add the `all` flag to the endpoint and set it to `1`.
+- The `http://docker/containers/create` endpoint: Creates a container by using a POST request and a JSON hash containing an image name, hostname, etc.. And then a call to the `/containers/<container_id>/start` endpoint to start it. Much like the `docker run` command.
+- The Remote API has an ***authentication*** mechanism that has been available since the 0.9 release of Docker. The authentication uses ***TLS/SSL certificates*** to secure your connection to the API.
+- The `--tlsverify` flag is used to enable the TLS protection.
+- The `--tlscacert=/etc/docker/ca.pem` `--tlscert=/etc/docker/server-cert.pem` `--tlskey=/etc/docker/server-key.pem` flags are used to specify CA certificate, certificate, and key.
+- The `--tlsverify` flag enables the TLS connection to the Docker daemon.
