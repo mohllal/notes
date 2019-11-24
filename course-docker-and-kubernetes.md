@@ -6,7 +6,7 @@ Date Started: Monday, September 21, 2019
 
 Date Finished: Friday, ongoing
 
-### Section 1: Dive into Docker
+## Section 1: Dive into Docker
 
 - Docker makes it really easy to install and run software without worrying about setup or dependencies.
 - Docker is a platform/ecosystem about creating and managing containers.
@@ -32,7 +32,7 @@ Date Finished: Friday, ongoing
 - Docker container is a process or group of process that have a specific group of resources assigned to it.
 - Docker image is a filesystem snapshot along with some specific startup commands as well.
 
-### Section 2: Manipulating Containers with the Docker Client
+## Section 2: Manipulating Containers with the Docker Client
 
 - `docker run <image_name> <command>` command is used to override the default command of the Docker image.
 - `docker ps`, and `docker container ls` commands are used to list all the running containers. `docker ps --all`, and `docker container ls --all` commands are used to list all containers that have ever created on the machine.
@@ -64,7 +64,7 @@ Date Finished: Friday, ongoing
   - bash
 - `docker exec -it <container_id> ssh` is used to get full terminal access inside a running container.
 
-### Section 3: Client Building Custom Images Through Docker Server
+## Section 3: Client Building Custom Images Through Docker Server
 
 - Dockerfile is a plain text file to put all configurations that define how the custom image should behave.
 - Dockerfile line structure is as follows:
@@ -84,14 +84,14 @@ Date Finished: Friday, ongoing
 - `docker build -t <docker_Id>/<repo_name>:<version>` command is used to tag an image.
 - `docker commit -c <startup_command> <container_id>` command is used to manually generate a custom image from a running container.
 
-### Section 4: Making Real Projects with Docker
+## Section 4: Making Real Projects with Docker
 
 - `alpine` is a term in the Docker world for an image that is as small and compact as possible.
 - `COPY ./ ./` instruction is used to copy the contents of the build context folder to current working directory in the custom image.
 - `-p <host_port>:<container_port>` flag is used to forward the traffic coming on a port inside the host network to a port inside the container network.
 - `WORKDIR <folder_path>` instruction is used to change the working directory in the container.
 
-### Section 5: Docker Compose with Multiple Local Containers
+## Section 5: Docker Compose with Multiple Local Containers
 
 - `docker-compose` is a separate CLI tool that gets installed along with Docker. It is used to start up multiple containers at the same time and automate some of the long-winded flags passed to the `docker run` command.
 - `docker-compose up` = `docker run <image_id>`
@@ -104,9 +104,39 @@ Date Finished: Friday, ongoing
   - *unless-stopped*: Always restart the container unless someone forcibly stop it.
 - `docker-compose ps` command is used to list all containers that are running by issuing a `docker-compose up` command.
 
-### Section 6: Creating a Production-Grade Workflow
+## Section 6: Creating a Production-Grade Workflow
 
 - `docker build -f <file_name> .` command is used to build a docker image from a `Dockerfile` with a custom name.
 - `-v <host_path>:<container_path>` flag is used to mount a volume of a folder/file in the host machine to a folder/file in the container.
 - `dockerfile` instruction in the `docker-compose.yaml` file is used to override the default path for the default `Dockerfile` used to build the custom image.
 - `docker attach <container_id>` command is used to attach the terminal to the STDIN, STDOUT and STDERR of the primary process, process with PID equal to `1`, running in the container.
+
+## Section 12: Onwards to Kubernetes
+
+- ***Kubernetes*** is system for running many different Docker ***Containers***, so different types of Containers, or different number of Containers over multiple different machines.
+- A ***Cluster*** in the world of *Kubernetes* is the assembly of something called a ***Master*** and one or more ***Nodes***; A *Node* is a ***virtual*** or ***physical*** machine that is going to be used to run some number of different Docker ***Containers***.
+- Kubernetes *Master* has a set of different programs running on it that control what each of *Nodes* are running at any given time.
+- `minikube` is a command line tool whose solo purpose is going to be set up a tinny littler *Kubernetes* cluster on local environment.
+- ***Managed Solutions*** is a reference to outside cloud providers such as *Google Cloud* or *Amazon Web Services (AWS)* that will set up an entire *Kubernetes* cluster and take care of a lot of very low-level tasks that are required to get everything work in a secure fashion.
+  - ***Amazon Elastic Container Service for Kubernetes (EKS)***
+  - ***Google Cloud Kubernetes Engine (GKE)***
+- `kubectl` is a program that is used to interact with a ***Kubernetes Cluster*** in general and manage what all the different *Nodes* are doing and what different *Containers* they are running.
+- Configuration files are used to create ***Kubernetes Objects*** which serve different purposes - running a container, monitoring a container, setting up networking, etc..:
+  - ***StatefulSet***
+  - ***ReplicaController***
+  - ***Pod***
+  - ***Service***
+- Each API version defines a different set of *Kubernetes Objects* we can use.
+- A `Pod` is essentially a group of containers with a very command purpose, it's the smallest *Kubernetes Object* that can be deployed to run one or more containers inside on it. In a `Pod` we group together containers that have a *very discrete*, *very tightly coupled* relationship.
+- A `Service` *Kubernetes Object* is used to setup networking in a *Kubernetes Cluster*. There are four commonly used `Service` subtypes:
+  - ***ClusterIP***
+  - ***NodePort***
+  - ***LoadBalancer***
+  - ***Ingress***
+- The purpose of `NodePort` service is to expose a *Container* to the outside world.
+- Every single *Kubernetes Node* has a program on it called `kube-proxy` which is the one and single window to the outside world. Any time a request comes into the *Node*, it's going to pass through the `kube-proxy` proxy which going to inspect the request and decide how to route it to different services or different `Pod`s.
+- The `kubectl apply -f <file_name>` command is used to feed a configuration file to `Kubectl`.
+- The `kubectl get pods` command is used to print the status of all running *Pods*.
+- There are two ways of approaching deployments:
+  - ***Imperative Deployment*** (*discrete commands or actions*)
+  - **Declarative Deployment** (*guidelines*)
