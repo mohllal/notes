@@ -4,7 +4,7 @@ By: James Turnbull. [Purchase the book](https://dockerbook.com/)!
 
 Date Started: Tuesday, September 24, 2019
 
-Date Finished: ongoing
+Date Finished: Sunday, November 24, 2019
 
 ## Chapter 1: Introduction
 
@@ -122,6 +122,32 @@ image.
   - Changes to a volume are made directly.
   - Changes to a volume will not be included when you update an image.
   - Volumes persist even when no containers use them.
+
+## Chapter 7: Docker Orchestration and Service Discovery
+
+- ***Docker Compose*** (previously Fig) is an open source Docker simple container *orchestration* tool.
+- ***Consul*** is an open source *distributed service discovery* tool.
+- ***Swarm*** is an open source Docker *orchestration and clustering* tool.
+- With ***Docker Compose***, we define a set of containers to boot up, and their runtime properties, all defined in a `YAML` file. Docker Compose calls each of these containers ***services***.
+- A distributed application is usually made up of multiple components. These components can be located together locally or distributed across data centers or geographic regions. Each of these components usually provides or consumes services to or from other components.
+- ***Docker Swarm*** is native *clustering* for Docker. It turns a pool of ***Docker hosts*** into a single virtual Docker host. Swarm has a simple architecture. It clusters together multiple Docker hosts and serves the standard Docker API on top of that cluster.
+- A *swarm* is a cluster of Docker hosts onto which you can deploy services. Since Docker 1.12 the Docker command line tool has included a swarm mode. This allows the *docker binary* to create and manage swarms as well as run local containers.
+- A swarm is made up of ***manager*** and ***worker*** nodes. Manager do the dispatching and organizing of work on the swarm. Each unit of work is called a task. Managers also *handle all the cluster management functions* that keep the swarm *healthy* and *active*. You can have many manager nodes, if there is more than one then the manager node will conduct an *election for a leader*.
+- ***Worker nodes*** run the tasks dispatched from ***manager nodes***. Out of the box, every node, managers and workers, will run tasks. You can instead configure a swarm manager node to *only perform management activities and not run tasks*.
+- Swarm uses an abstraction, called a ***service*** as a building block. Services defined which tasks are executed on nodes. Each service consists of a *container image and a series of commands* to execute inside one or more containers on the nodes.
+  - ***Replicated services*** - a swarm manager distributes replica tasks amongst workers according to a scale you specify.
+  - ***Global services*** - a swarm manager dispatches one task for the service on every available worker.
+- The `docker swarm init --advertise-addr` command is used to initialize a swarm and the `--advertise-addr` flag to specify the management IP of the new swarm.
+- The `docker swarm join-token worker` command is used to get the registration token for the swarm.
+- The `docker node ls` command is used to show the list of nodes in the swarm.
+- The `docker swarm join` command takes a token, in our case the worker token,
+ and the IP address and port of a Swarm manager node and adds that Docker host to the swarm.
+- The `docker service create` command is used to create services that will be executed on our swarm nodes.
+- The `--replicas` flag controls how many tasks are run on the swarm.
+- The `docker service ls` command is used to list all services running on the swarm.
+- The `docker service inspect` command is used to inspect a service on the swarm and show more info of it.
+- The `docker service scale` command is used to add another task to the service, scaling it up.
+- The `docker service rm` command is used to stop the service.
 
 ## Chapter 8: Using the Docker API
 
