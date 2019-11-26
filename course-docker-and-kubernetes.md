@@ -140,3 +140,19 @@ Date Finished: Friday, ongoing
 - There are two ways of approaching deployments:
   - ***Imperative Deployment*** (*discrete commands or actions*)
   - **Declarative Deployment** (*guidelines*)
+
+## Section 13: Maintaining Sets of Containers with Deployments
+
+- Anytime a configuration file is tossed to *Kubectl*, Kubernetes *Master* will check if there is any other object with identical name and type to update it with the new configuration file rather than creating a new one.
+- The `kubectl describe <object_type> <object_name>` command is used to get detailed information about an object inside a *Cluster*.
+- Updating a configuration file is limited to some specific fields:
+  - `spec.containers[*].image`
+  - `spec.initContainers[*].image`
+  - `spec.activeDeadlineSeconds`
+  - `spec.tolerations`
+- A `Deployment` is *Kubernetes Object* that is meant to maintain a set of identical `Pod`s, enuring that they have the correct config and that the right number exists.
+- The `kubectl delete -f <config_file>` command is used to delete an existing *Kubernetes Object*.
+- The `minikube ip` command is used to get the IP address of the VM created by the *minikube*.
+- Anytime a *Pod* is restarted or updated it gets a *new IP address*.
+- The `kubectl set image <object_type>/<object_name> <container_name> = <new_image>` command is used to update the image of running container.
+- The `eval $(minikube docker-env)` command is used to very temporary ***reconfigure*** the *Docker Client (CLI)* to the *Docker Server* inside *Kubernetes minikube Node*.
