@@ -9,7 +9,7 @@ Date Finished: ongoing
 > Writing clean code is what you must do in order to call yourself a professional.
 > There is no reasonable excuse for doing anything less than your best.
 
-### Chapter 1: Clean Code
+## Chapter 1: Clean Code
 
 - The LeBlanc’s law: Later equals never.
 - Spending time keeping your code clean is not just cost effective; it’s a matter of
@@ -29,7 +29,7 @@ Date Finished: ongoing
   > it. So other people stop caring. They allow more windows to become broken. Eventually they actively break them. They despoil the facade with graffiti and allow garbage to collect. One broken window starts the process toward decay.
 - Clean code is code that has been taken care of. Someone has taken the time to keep it simple and orderly. They have paid appropriate attention to details. They have cared.
 
-### Chapter 2: Meaningful Names
+## Chapter 2: Meaningful Names
 
 - Names should reveal intent. Names should tell us why it exists, what it does, and how it is used.
 - Avoid using words whose entrenched meanings vary from our intended meaning.
@@ -55,7 +55,7 @@ more context to a name than is necessary.
   - Add meaningful context
   - Don’t add gratuitous context
 
-### Chapter 3: Functions
+## Chapter 3: Functions
 
 - The first rule of functions is that they should be small. Functions should hardly ever be 20 lines long.
 - The indent level of a function should not be greater than one or two.
@@ -74,7 +74,7 @@ more context to a name than is necessary.
 - Functions should do one thing. Error handing is one thing. Thus, a function that handles errors should do nothing else.
 - Edsger Dijkstra’s rules of structured programming: every function, and every block within a function, should have one entry and one exit.
 
-### Chapter 4: Comments
+## Chapter 4: Comments
 
 - The proper use of comments is to compensate for our failure to express ourself in code. Note that I used the word failure.
 - Comments don’t always follow the changes of code-they can’t always follow them.
@@ -101,7 +101,7 @@ more context to a name than is necessary.
   - Commented-Out code comments
   - Nonlocal information comments
 
-### Chapter 5: Formatting
+## Chapter 5: Formatting
 
 - Code formatting is important. It is too important to ignore and it is too important to treat religiously. Code formatting is about communication, and communication is the professional developer’s first order of business.
 - > Your style and discipline survives, even though your code does not.
@@ -113,7 +113,7 @@ more context to a name than is necessary.
   - Instance variables, on the other hand, should be declared at the top of the class.
   - If one function calls another, they should be vertically close, and the caller should be above the callee, if at all possible
 
-### Chapter 6: Objects and Data Structures
+## Chapter 6: Objects and Data Structures
 
 - Hiding implementation is about abstractions! A class does not simply push its variables out through getters and setters, it exposes abstract interfaces that allow its users to manipulate the essence of the data, without having to know its implementation.
 - > Procedural code (code using data structures) makes it easy to add new functions without changing the existing data structures. OO code, on the other hand, makes it easy to add new classes without changing existing functions.
@@ -123,3 +123,23 @@ more context to a name than is necessary.
 - Data transfer object is a class with public variables and no functions. It's very useful structures, especially when communicating with databases or parsing messages from sockets.
 - Active Records are special forms of DTOs. They are data structures with public variables; but they typically have navigational methods like save and find.
 - Never put business rule methods inside active records or DTOs because it creates a hybrid between a data structure and an object.
+
+## Chapter 7: Error Handling
+
+- In a way, `try` blocks are like *transactions*. Your `catch` has to leave your program in a consistent state, no matter what happens in the `try`. For this reason it is good practice to start with a `try-catch-finally` statement when you are writing code that could throw exceptions.
+- ***Checked Exceptions***: The signature of every method would list all of the exceptions that it could pass to its caller. Moreover, these exceptions were part of the type of the method.
+- Consider the calling hierarchy of a large system. *Functions at the top call functions below them, which call more functions below them, ad infinitum*. Now let’s say one of the lowest level functions is modified in such a way that it must throw an exception. *If that exception is checked, then the function signature must add a throws clause*. But this means that every function that calls our modified function must also be modified either to catch the new exception or to append the appropriate throws clause to its signature. Ad infinitum. It is an *Open/Closed Principle* violation.
+- *Wrapping* third-party APIs is a best practice. When you wrap a third-party API, you minimize your dependencies upon it: You can choose to move to a different library in the future without much penalty. Wrapping also makes it easier to mock out third-party calls when you are testing your own code.
+- The ***Special Case Pattern***. You create a class or configure an object so that it handles a special case for you. When you do, the client code doesn’t have to deal with exceptional behavior. That behavior is encapsulated in the special case object.
+- Some things we do that invite errors:
+  - Returning a `Null`.
+  - Passing a `Null`.
+- In most programming languages there is no good way to deal with a `null` that is passed by a caller accidentally. Because this is the case, the rational approach is to forbid passing `null` by default. When you do, you can code with the knowledge that a `null` in an argument list is an indication of a problem, and end up with far fewer careless mistakes.
+
+## Chapter 8: Boundaries
+
+- If you use a *boundary interface* like `Map`, keep it inside the class, or close family of classes, where it is used. Avoid returning it from, or accepting it as an argument to public APIs.
+- ***Learning tests*** verify that the third-party packages we are using work the way we expect them to. Once integrated, there are no guarantees that the third-party code will stay compatible with our needs. Without these ***boundary tests*** to ease the migration we might be tempted to stay with the old version longer than we should.
+- The ***Adapter Pattern*** encapsulated the interaction with the API and provides a single place to change when the API evolves.
+- Code at the boundaries needs *clear separation* and tests that define expectations. We should avoid letting too much of our code know about the third-party particulars. *It’s better to depend on something you control than on something you don’t control*, lest it end up controlling you.
+- We manage third-party boundaries by *having very few places in the code that refer to them*. We may *wrap them* as we did with Map, or we may use an *Adapter Pattern* to convert from our perfect interface to the provided interface.
