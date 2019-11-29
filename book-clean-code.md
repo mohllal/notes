@@ -143,3 +143,21 @@ more context to a name than is necessary.
 - The ***Adapter Pattern*** encapsulated the interaction with the API and provides a single place to change when the API evolves.
 - Code at the boundaries needs *clear separation* and tests that define expectations. We should avoid letting too much of our code know about the third-party particulars. *It’s better to depend on something you control than on something you don’t control*, lest it end up controlling you.
 - We manage third-party boundaries by *having very few places in the code that refer to them*. We may *wrap them* as we did with Map, or we may use an *Adapter Pattern* to convert from our perfect interface to the provided interface.
+
+## Chapter 9: Unit tests
+
+- The three laws of TDD:
+  - *First Law*: You may *not write production code until you have written a failing unit test*.
+  - *Second Law*: You may not write more of a unit test than is sufficient to fail, and not compiling is failing.
+  - *Third Law*: You may not write more production code than is sufficient to pass the currently failing test.
+- The problem is that *tests must change as the production code evolves*. The dirtier the tests, the harder they are to change. The more tangled the test code, the more likely it is that you will spend more time cramming new tests into the suite than it takes to write the new production code.
+- ***Test code is just as important as production code***. It is not a *second-class citizen*. It requires thought, design, and care. It must be kept as clean as production code. Tests enable all the `-ilities`, because ***tests enable change***.
+- ***Readability*** is perhaps even more important in unit tests than it is in production code. What makes tests readable? The same thing that makes all code readable: *clarity*, *simplicity*, and *density of expression*.
+- The ***Build-Operate-Check Pattern*** splits test into three parts. The first part *builds up the test data*, the second part *operates on that test data*, and the third part *checks that the operation yielded the expected results*.
+- ***Domain-Specific Testing Language*** is a technique of building domain-specific language for tests. Rather than using the APIs that programmers use to manipulate the system, we build up a set of functions and utilities that make use of those APIs and that make the tests more convenient to write and easier to read. These functions and utilities become a specialized API used by the tests.
+- Clean tests follow five other rules that form this acronym ***F.I.R.S.T.***:
+  - ***Fast***: Tests should be fast. They should run quickly. When tests run slow, you won’t want to run them frequently.
+  - ***Independent***: Tests should not depend on each other. One test should not set up the conditions for the next test.
+  - ***Repeatable***: Tests should be repeatable in any environment.
+  - ***Self-Validating***: Tests should have a boolean output. Either they pass or fail.
+  - ***Timely***: Tests need to be written in a timely fashion. Unit tests should be written just before the production code that makes them pass.
