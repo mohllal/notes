@@ -144,7 +144,7 @@ more context to a name than is necessary.
 - Code at the boundaries needs *clear separation* and tests that define expectations. We should avoid letting too much of our code know about the third-party particulars. *It’s better to depend on something you control than on something you don’t control*, lest it end up controlling you.
 - We manage third-party boundaries by *having very few places in the code that refer to them*. We may *wrap them* as we did with Map, or we may use an *Adapter Pattern* to convert from our perfect interface to the provided interface.
 
-## Chapter 9: Unit tests
+## Chapter 9: Unit Tests
 
 - The three laws of TDD:
   - *First Law*: You may *not write production code until you have written a failing unit test*.
@@ -161,3 +161,17 @@ more context to a name than is necessary.
   - ***Repeatable***: Tests should be repeatable in any environment.
   - ***Self-Validating***: Tests should have a boolean output. Either they pass or fail.
   - ***Timely***: Tests need to be written in a timely fashion. Unit tests should be written just before the production code that makes them pass.
+
+## Chapter 10: Classes
+
+> The first rule of classes is that they should be small. The second rule of classes is that they should be smaller than that. We count responsibilities to measure the size.
+
+- The name of a class should *describe what responsibilities it fulfills*. In fact, naming is probably the first way of helping determine class size. If we cannot derive a concise name for a class, then it’s likely too large.
+- The ***Single Responsibility Principle*** (SRP) states that a class or module should have one, and only one, reason to change. This principle gives us both a definition of responsibility, and a guidelines for class size. Classes should have one responsibility—one reason to change.
+- Every sizable system will contain a large amount of logic and complexity. The primary goal in managing such complexity is to *organize it so that a developer knows where to look to find things* and need only understand the directly affected complexity at any given time.
+- ***Classes should have a small number of instance variables***. Each of the methods of a class should manipulate one or more of those variables. In general the more variables a method manipulates the more cohesive that method is to its class. *A class in which each variable is used by each method is maximally cohesive*.
+
+> When classes lose cohesion, split them!
+
+- In an ideal system, we incorporate new features by extending the system, not by making modifications to existing code.
+- The ***lack of coupling*** means that the elements of our system are better isolated from each other and from change. This isolation makes it easier to understand each element of the system.
