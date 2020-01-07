@@ -175,3 +175,27 @@ more context to a name than is necessary.
 
 - In an ideal system, we incorporate new features by extending the system, not by making modifications to existing code.
 - The ***lack of coupling*** means that the elements of our system are better isolated from each other and from change. This isolation makes it easier to understand each element of the system.
+
+## Chapter 11: Systems
+
+> Software systems should separate the startup process, when the application objects are
+constructed and the dependencies are wired together, from the runtime logic that takes
+over after startup.
+
+- We can use the ***Abstract Factory*** pattern to give the application control of when to build an object but keep the details of that construction separate from the application code.
+- ***Inversion of Control*** moves secondary responsibilities from an object to other objects that are dedicated to the purpose, thereby supporting the Single Responsibility Principle.
+- It is a myth that we can get systems *right the first time*. Instead, we should implement only today’s stories, then refactor and expand the system to implement new stories tomorrow. This is the essence of iterative and incremental agility. Test-driven development, refactoring, and the clean code they produce make this work at the code level.
+
+> An optimal system architecture consists of modularized domains of concern, each of which is implemented with Plain Old Java (or other) Objects. The different domains are integrated together with minimally invasive Aspects or Aspect-like tools. This architecture can be test-driven, just like the code.
+
+- A good ***DSL*** minimizes the *communication gap* between a domain concept and the
+code that implements it, just as agile practices optimize the communications within a
+team and with the project’s stakeholders. Implementing domain logic in the same language that a domain expert uses, there is less risk that will incorrectly translate the domain into the implementation.
+
+## Chapter 12: Emergence
+
+- According to Kent Beck, the four rules of *Simple Design* are:
+  - ***Runs all the tests***: Systems that aren’t testable aren’t verifiable. Arguably, a system that cannot be verified should never be deployed.
+  - ***Contains no duplication***: Lines of code that are similar can often be massaged to look even more alike so that they can be more easily refactored.
+  - ***Expresses the intent of the programmer***: The code should clearly express the intent of its author. The clearer the author can make the code, the less time others will have to spend understanding it.
+  - ***Minimizes the number of classes and methods***: High class and method counts are sometimes the result of pointless dogmatism.
