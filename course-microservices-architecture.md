@@ -50,3 +50,28 @@ Date Finished: ongoing
 - Resilience can be implemented using multiple instances of the same microservice that *register on start-up and de-register on failure*.
 - Observability ensures that we have a ***centric monitoring and logging systems***.
 - ***CI/CD*** and ***testing automation*** tools are one of the fundamental requirements for Microservices architecture.
+
+## Section 2: Microservices Design
+
+- To make the Microservices architecture more decoupled, we could use the asynchronous communication model; Service publish events and these events are then handled by a message broker so other services which are listening out for these events can carry out the tasks.
+- Open communication protocols which are technology antagonistic APIs like ***HTTP REST***.
+- Microservices that talk to each other should have contracts between the services.
+- ***Shared model*** of data is unlikely to change even if the internal representation is changed in the microservice itself.
+- ***Avoid chatty exchanges*** between services.
+- ***Avoid using shared libraries*** within microservices because a bug fix in a shared library might mean that we have to redeploy two microservices because they carry the same bug.
+- ***Versioning strategy*** is important when designing a Microservices architecture application.
+- In ***semantic versioning*** a version number is made of three numbers ***Major.Minor.Patch***. Incrementing the major number when *the new version is not backward compatible*. Incrementing the minor number when *the new version is backward compatible*. Incrementing the patch number when *the only change is a defect fix*.
+- We have to ensure that when we introduce a new version of a microservice, it doesn't break the existing contract and the existing microservices that consume our new microservice.
+- Integration tests basically test the changed microservice for input, outputs and shared models.
+- CI/CD practices must be followed when designing a Microservice architecture application.
+- During the design stage of our Microservices application, we need to design all microservices for all unknown failures by:
+  - Degrade the functionality on failure detection.
+  - Default functionality on failure detection.
+- Using timeout between connected systems or services to configure the system to fail fast and recover fast.
+- It's important that we consider system health in a transparent way and one way of doing this is to have a centralized monitoring that produces:
+  - Monitoring data in real-time.
+  - Monitoring health of the host in terms of CPU usages, memory usages, etc..
+  - Expose metrics within the services like response time, timeout, etc..
+  - Incident alerting.
+- It's also important to have a centralized logging that help in troubleshooting code paths milestones.
+- Traceable distributed transactions can be achieved by putting the correlation id which is passed from service to service.
