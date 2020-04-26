@@ -1,6 +1,6 @@
 # Microservices Architecture
 
-By: Rag Dhiman. [Purchase the book](https://www.pluralsight.com/courses/microservices-architecture)!
+By: Rag Dhiman. [Purchase the course](https://www.pluralsight.com/courses/microservices-architecture)!
 
 Date Started: Tuesday, April 7, 2020
 
@@ -75,3 +75,39 @@ Date Finished: ongoing
   - Incident alerting.
 - It's also important to have a centralized logging that help in troubleshooting code paths milestones.
 - Traceable distributed transactions can be achieved by putting the correlation id which is passed from service to service.
+
+## Section 3: Technology for Microservices
+
+- When we ***synchronous*** communication between microservices we basically make requests and then wait for responses.
+- The ***remote procedure call (RPC)*** can be used for synchronous communication. Libraries basically shield all the detail regarding the network protocols and the communication protocols. It appears like you're making a call to a local functional method but in fact you're actually calling a remote method on a remote service.
+- Another technology that can be used for request-response synchronous communication is ***HTTP***. HTTP is firewall friendly therefore firewalls can be configured quite easily to let HTTP traffic through.
+- ***REST*** is an open communication protocol that can be used over HTTP to ***CRUD*** the resources entities using HTTP verbs. REST also provides natural decoupling because the data returned is always in *JSON* or *XML* format which is normally different to the internal representation of that entity.
+- ***HATEOS*** is basically a technique to include links to related resources in responses.
+- Asynchronous communication in Microservices architecture context basically means ***event based communication***. When a service needs another service to carry out a task, instead of connecting directly to that service, the service trigger an event and services that needs to carry out that task will automatically pick that event up.
+- Event based communication *mitigates the need of client and service availability*. It normally uses ***messages queuing protocols*** where the events created by services are seen as ***messages*** are stored in a ***message broker*** and the service create the messages is seen as ***publisher*** and the service that carries out tasks in form of response to these messages is seen as ***subscriber***.
+- There are many vendors that provide message queuing solutions such as ***Microsoft Message Queuing (MSMQ)***, ***RabbitMQ***, and ***ATOM*** (HTTP to propagate events), etc..
+- Asynchronous communication challenges:
+  - Complication.
+  - Reliance on message broker.
+  - Visibility of transactions.
+  - Managing the message queuing.
+- ***Containers are another type of Virtualization***. However unlike virtual machines, they don't run an operating system within the container.
+- *Containers are tend to run faster than VMs*. And they tend to boot up a lot faster than VMs because they are more lightweight.
+- Cloud hosting services can make the implementation of a Microservices application a lot simpler because we can control the whole application via a portal and there is no need for physical machines or specialized stuff members in order to curry out a specific tasks.
+- ***Service registry system enable our microservices to register themselves on start-up and when any microservice stop responding the service registry system de-register*** that instance of the microservice so that new client requests will not connect to that microservice that experience problems.
+- There are two types of service discovery:
+  - ***Client side discovery***: When the client connects directly to the service register system in order to find a microservice location to connect to.
+  - ***Server side discovery***: When the client connects to a gateway service which is connected to the service registry system on behalf of the client.
+- There are number of central monitoring tools out there:
+  - Nagios
+  - PRTG
+  - New Relic
+- In Microservices architecture ***the network monitoring is a key component*** specially when most transactions are distributed.
+- Scaling a microservice can be done as one of two types:
+  - ***Creating multiple instances*** of that service (***scaling out***).
+  - ***Increase the resources*** to existing service (***scaling up***).
+- Caching is a way of basically detecting that multiple calls are asking for the same thing and instead of honoring each request, the service honor one request and then cache the data in order to use the same data to satisfy all other requests.
+- ***The ideal place to implement caching within a Microservices architectured system is that the API Gateway level*** as it will not only reduce the number of calls to our services and databases but it will also reduce the amount of traffic within our network.
+- API gateways are ***basically the central entry point*** into our system for client application and therefore they can be used to improve performance by having load-balancing and caching functionalities.
+- *API gateways can also be used to improve security* for the overall system by providing authentication and authorization.
+- It is considered a good practice to have a separate code repository for each microservice with its own CI/CD build, this ways two microservices are not accidentally changed at the same time.
