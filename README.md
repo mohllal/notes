@@ -39,6 +39,9 @@ I'll try to stick to this structure as much as I can
   - [Foundations of Programming: Object-Oriented Design](course-object-oriented-design.md) [✔]
   - [Docker and Kubernetes: The Complete Guide](course-docker-and-kubernetes.md)
   - [Node.js Advanced Concepts](course-nodejs-advanced-concepts.md)
+  - [Version Control with Git](course-atlassian-version-control.md) [✔]
+  - [Microservices Architecture](course-microservices-architecture) [✔]
+
 - Documentations
   - [Jenkins Documentation](doc-jenkins.md) [✔]
   - [TypeScript Documentation](doc-typescript.md)
