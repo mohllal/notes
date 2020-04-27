@@ -76,7 +76,7 @@ Date Finished: ongoing
 - It's also important to have a centralized logging that help in troubleshooting code paths milestones.
 - Traceable distributed transactions can be achieved by putting the correlation id which is passed from service to service.
 
-## Section 3: Technology for Microservices
+## Section 4: Technology for Microservices
 
 - When we ***synchronous*** communication between microservices we basically make requests and then wait for responses.
 - The ***remote procedure call (RPC)*** can be used for synchronous communication. Libraries basically shield all the detail regarding the network protocols and the communication protocols. It appears like you're making a call to a local functional method but in fact you're actually calling a remote method on a remote service.
@@ -111,3 +111,23 @@ Date Finished: ongoing
 - API gateways are ***basically the central entry point*** into our system for client application and therefore they can be used to improve performance by having load-balancing and caching functionalities.
 - *API gateways can also be used to improve security* for the overall system by providing authentication and authorization.
 - It is considered a good practice to have a separate code repository for each microservice with its own CI/CD build, this ways two microservices are not accidentally changed at the same time.
+
+## Section 3: Moving Forward with Microservices
+
+1. The first key step in migrating to Microservices architecture from Monolithic system ***is identifying seems in the system*** which is done by identifying separation within the code that reflect the domains in the application business.
+    - By grouping the code that relates to a specific business domain or functionality we are basically identifying ***bounded contexts*** and having a clear boundary with clear interfaces between each module/group.
+2. ***Covert bounded contexts into separate microservices*** one by one with incremental approach.
+    - How to prioritize what to split?
+      - By risk
+      - By technology
+      - By dependencies
+3. *Split database by identifying seems that related to code modules*. Providing API calls that can fetch data for a relationship between different microservices.
+    - we still have to worry about ***data referential integrity*** by having microservices talk and instruct each other.
+4. Implement different ***strategies for handling distributed transactions failures*** and this can be done by using a transaction manager software which ***uses two-phase commit*** methodology.
+5. Microservices complicate data reporting because data is split across different microservices thus we have to accept the fact that the ***data reporting will be slower***.
+    - We can have a ***dedicated reporting microservice*** which basically calls other microservices to collect and consolidate the data.
+    - We also use ***data pumps*** that pumps the data to a central database.
+
+- It's important in a greenfield situation to *understand and collect the requirements* and not focus to much on what microservices are required to address the overall problem.
+- ***It's best to start off with a Monolithic design*** so we start off with a high level design and we allow the seems within our system to evolve.
+- Because of distributed nature in a Microservices application we have to invest more in extra testing resources in order to test latency, performance, and resilience.
