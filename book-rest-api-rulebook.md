@@ -71,3 +71,45 @@ Date Finished: ongoing
   - The query component of a URI should be used to paginate collection or store results.
 
 - The entirety of a resource’s URI should be treated opaquely by basic network-based intermediaries such as HTTP caches. Caches must not vary their behavior based on the presence or absence of a query in a given URI. Specifically, response messages must not be excluded from caches based solely upon the presence of a query in the requested URI.
+
+## Chapter 3: Identifier Design with URIs
+
+- Each HTTP method has specific, well-defined semantics within the context of a REST API’s resource model. The purpose of **GET** is to retrieve a representation of a resource’s state. **HEAD** is used to retrieve the metadata associated with the resource’s state. PUT should be used to add a new resource to a store or update a resource. **DELETE** removes a resource from its parent. **POST** should be used to create a new resource within a collection and execute controllers.
+- `Request-Line = Method <SP> Request-URI <SP> HTTP-Version <CRLF>`.
+- Request method rules:
+  - **GET** and **POST** must not be used to tunnel other request methods. Tunneling refers to any abuse of HTTP that masks or misrepresents a message’s intent and undermines the protocol’s transparency.
+  - **GET** must be used to retrieve a representation of a resource.
+  - **HEAD** should be used to retrieve response headers. In other words, *HEAD* returns the same response as *GET*, except that the API returns an empty body.
+  - **PUT** must be used to both insert and update a stored resource. The *PUT* request message must include a representation of a resource that the client wants to store. However, the body of the request may or may not be exactly the same as a client would receive from a subsequent *GET* request.
+  - **PUT** must be used to update mutable resources.
+  - **POST** must be used to create a new resource in a collection.
+  - **POST** must be used to execute controllers.
+  - **DELETE** must be used to remove a resource from its parent which is often a collection or store. Once a DELETE request has been processed for a given resource, the resource can no longer be found by clients. Therefore, any future attempt to retrieve the resource’s state representation, using either GET or HEAD, must result in a *404 (Not Found)* status returned by the API.
+  - **OPTIONS** should be used to retrieve metadata that describes a resource’s available interactions that includes an *Allow* header value.
+- `Status-Line = HTTP-Version <SP> Status-Code <SP> Reason-Phrase <CRLF>`.
+- Response status codes rules:
+  - 1xx: Informational: Communicates transfer protocol-level information.
+  - 2xx: Success: Indicates that the client’s request was accepted successfully.
+    - **200 (OK)** should be used to indicate nonspecific success and should include a response body.
+    - **200 (OK)** must not be used to communicate errors in the response body.
+    - **201 (Created)** must be used to indicate successful resource creation.
+    - **202 (Accepted)** must be used to indicate successful start of an asynchronous action.
+    - **204 (No Content)** should be used when the response body is intentionally empty and is usually sent out in response to a *PUT*, *POST*, or *DELETE* request, when the REST API declines to send back any status message or representation in the response message’s body.
+  - 3xx: Redirection: Indicates that the client must take some additional action in order to complete their request.
+    - **301 (Moved Permanently)** should be used to relocate resources.
+    - **302 (Found)** should not be used.
+    - **303 (See Other)** should be used to refer the client to a different URL. It allows a REST API to send a reference to a resource without forcing the client to download its state. Instead, the client may send a GET request to the value of the Location header.
+    - **304 (Not Modified)** should be used to preserve bandwidth
+    - **307 (Temporary Redirect)** should be used to tell clients to resubmit the request to another URI. It indicates that the REST API is not going to process the client’s request. Instead, the client should resubmit the request to the URI specified by the response message’s Location header.
+  - 4xx: Client Error: This category of error status codes points the finger at clients.
+    - **400 (Bad Request)** may be used to indicate nonspecific failure.
+    - **401 (Unauthorized)** must be used when there is a problem with the client’s credentials.
+    - **403 (Forbidden)** should be used to forbid access regardless of authorization state.
+    - **404 (Not Found)** must be used when a client’s URI cannot be mapped to a resource.
+    - **405 (Method Not Allowed)** must be used when the HTTP method is not supported.
+    - **406 (Not Acceptable)** must be used when the requested media type cannot be served.
+    - **409 (Conflict)** should be used to indicate a violation of resource state.
+    - **412 (Precondition Failed)** should be used to support conditional operations
+    - **415 (Unsupported Media Type)** must be used when the media type of a request’s payload cannot be processed.
+  - 5xx: Server Error: The server takes responsibility for these error status codes.
+    - **500 (Internal Server Error)** should be used to indicate API malfunction.
