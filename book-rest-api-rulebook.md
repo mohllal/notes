@@ -113,3 +113,37 @@ Date Finished: ongoing
     - **415 (Unsupported Media Type)** must be used when the media type of a request’s payload cannot be processed.
   - 5xx: Server Error: The server takes responsibility for these error status codes.
     - **500 (Internal Server Error)** should be used to indicate API malfunction.
+
+## Chapter 4: Metadata Design
+
+- HTTP defines a set of standard headers, some of which provide information about a requested resource. Other headers indicate something about the representation carried by the message. Finally, a few headers serve as directives to control intermediary caches.
+- Metadata design rules:
+  - `Content-Type` must be used to specify the type of data found within a request or response message’s body.
+  - `Content-Length` should be used to give the size of the entity-body in bytes.
+  - `Last-Modified` should be used in responses to indicate the last time that something happened to alter the representational state of the resource. This header should always be supplied in response to *GET* requests.
+  - `ETag` should be used in responses to identify a specific *version* of the representational state contained in the response’s entity. This header should always be supplied in response to *GET* requests.
+  - Stores must support conditional PUT requests by relying on the client to include the `If-Unmodified-Since` and/or `If-Match` request headers to express their intent. The `If-Unmodified-Since` request header asks the API to proceed with the operation *if, and only if, the resource’s state representation hasn’t changed since the time indicated by the header’s supplied timestamp value*. The `If-Match` header’s value is an entity tag, which the client remembers from an earlier response’s `ETag` header value. The `If-Match` header *makes the request conditional, based upon an exact match of the header’s supplied entity tag value and the representational state’s current entity tag value, as stored or computed by the REST API*.
+  - `Location` must be used to specify the URI of a newly created resource. In response to the successful creation of a resource within a collection or store, a REST API must include the `Location` header to designate the URI of the newly created resource.
+  - `Cache-Control`, `Expires`, and `Date` response headers should be used to encourage caching. When serving a representation, include a `Cache-Control` header with a `max-age` value (in seconds) equal to the freshness lifetime. To support legacy HTTP 1.0 caches, a REST API should include an `Expires` header with the expiration date-time. *The value is a time at which the API generated the representation plus the freshness lifetime*. REST APIs should also include a `Date` header with a date-time of the time at which the API returned the response. *Including this header helps clients compute the freshness lifetime as the difference between the values of the Expires and Date headers*.
+  - `Cache-Control`, `Expires`, and `Pragma` response headers may be used to discourage caching. If a REST API’s response must not cached, add `Cache-Control` headers with the value `no-cache` and `no-store`. In this case, also add the `Pragma: no-cache` and `Expires: 0` header values to interoperate with legacy HTTP 1.0 caches.
+  - Caching should be encouraged as possible. Using a small value of `max-age` as opposed to adding `no-cache` directive helps clients fetch cached copies for at least a short while without significantly impacting freshness.
+  - Expiration caching headers should be used with *200 (OK)* responses. Although `POST` is cacheable, most caches treat this method as non-cacheable.
+  - Expiration caching headers may optionally be used with 3xx and 4xx responses, known as **negative caching**, this helps reduce the amount of redirecting and error-triggering load on a REST API.
+  - Custom HTTP headers must not be used to change the behavior of HTTP methods, if the information that are conveyed through a custom HTTP header is important for the correct interpretation of the request or response, *include that information in the body of the request or response or the URI used for the request*.
+- Media types have the following syntax: `type "/" subtype *( ";" parameter )`.
+  - The type value may be one of: application, audio, image, message, model, multipart, text, or video. A typical REST API will most often work with media types that fall under the `application` type.
+  - In a hierarchical fashion, the media type’s subtype value is sub- ordinate to its type.
+  - The parameters may follow the type/subtype in the form of `attribute=value` pairs that are separated by a leading semi-colon (;) character. A media type’s specification may designate parameters as either required or optional. Parameter names are *case-insensitive*. Parameter values are normally *case-sensitive* and may be enclosed in double quote (“ ”) characters. *When more than one parameter is specified, their ordering is insignificant*.
+- Some commonly used registered media types are listed below:
+  - `text/plain`: A plain text format with no specific content structure or markup.
+  - `text/html`: Content that is formatted using the HyperText Markup Language (HTML).
+  - `image/jpeg`: An image compression method that was standardized by the Joint Photographic Experts Group (JPEG).
+  - `application/xml`: Content that is structured using the Extensible Markup Language (XML).
+  - `application/atom+xml`: Content that uses the Atom Syndication Format (Atom), which is an XML-based format that structures data into lists known as feeds.
+  - `application/javascript`: Source code written in the JavaScript programming language.
+  - `application/json`: The JavaScript Object Notation (JSON) text-based format that is often used by programs to exchange structured data.
+- Media type design rules:
+  - Application-specific media types should be used.
+  - Media type negotiation should be supported when multiple representations are available by submitting an `Accept` header with the desired media type.
+  -  Media type selection using a query parameter may be supported.
+- The URI of a resource type’s current schema version always identifies the concept of the most recent version. A schema document URI that ends with a number permanently identifies a specific version of the schema. Therefore the latest version of a schema is always modeled by two separate resources which conceptually overlap while the num- bered version is also the current one. This overlap results in the two distinct resources, with two separate URIs, consistently having the same state representation.
