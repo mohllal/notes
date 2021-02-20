@@ -145,5 +145,83 @@ Date Finished: ongoing
 - Media type design rules:
   - Application-specific media types should be used.
   - Media type negotiation should be supported when multiple representations are available by submitting an `Accept` header with the desired media type.
-  -  Media type selection using a query parameter may be supported.
-- The URI of a resource type’s current schema version always identifies the concept of the most recent version. A schema document URI that ends with a number permanently identifies a specific version of the schema. Therefore the latest version of a schema is always modeled by two separate resources which conceptually overlap while the num- bered version is also the current one. This overlap results in the two distinct resources, with two separate URIs, consistently having the same state representation.
+  - Media type selection using a query parameter may be supported.
+- The URI of a resource type’s current schema version always identifies the concept of the most recent version. A schema document URI that ends with a number permanently identifies a specific version of the schema. Therefore the latest version of a schema is always modeled by two separate resources which conceptually overlap while the numbered version is also the current one. This overlap results in the two distinct resources, with two separate URIs, consistently having the same state representation.
+
+## Chapter 5: Representation Design
+
+- XML, like HTML, organizes a document’s information by nesting angle-bracketed tag pairs. Well-formed XML must have tag pairs that match perfectly. This *“buddy system”* of tag pairs is XML’s way of holding a document’s structure together.
+- JSON uses curly brackets to hierarchically structure a document’s information. Most programmers are accustomed to this style of scope expression, which makes the JSON format feel natural to folks that are oriented to think in terms of object-based structures.
+- Message body rules:
+  - JSON should be supported for resource representation if there is not already a standard format for a given resource type.
+  - JSON must be well-formed:
+    - JSON supports number values directly, so they do not need to be treated as strings.
+    - JSON does not support date-time values, so they are typically formatted as strings.
+    - JSON names should use mixed lower case and should avoid special characters whenever possible.
+  - XML and other formats may optionally be used for resource representation.
+  - Additional envelopes must not be created, in other words, the body should contain a representation of the resource state, without any additional, transport-oriented wrappers
+- *A REST API response message’s body includes links to indicate the associations and actions that are available for a given resource, in a given state*. Included along with other fields of a resource’s state representation, links convey the relationships between resources and offer clients a menu of resource-related actions, which are context-sensitive.
+- Hypermedia representation rules:
+  - A consistent form should be used to represent links.
+  - A consistent form should be used to represent link relations. Every link has a `rel` value to identify a document that describes the link’s relation. A link’s `rel` value describes the relationship from the current resource to the resource specified by the link’s `href` attribute.
+  - A consistent form should be used to advertise links and to enable this, representations should include a structure, named `links`, to *contain all of the links that are available in the resource’s current state*. The links structure is a predictable place for clients to easily look up known links, by their simple relation names, as well as discover new links.
+  
+  ```json
+  {
+    "firstName" : "Osvaldo", 
+    "lastName" : "Alonso", 
+    "links" : {
+      "self" : {
+        "href" : "http://api.soccer.restapi.org/players/2113",
+        "rel": "http://api.relations.wrml.org/common/self",
+      },
+      "parent": {
+        "href" : "http://api.soccer.restapi.org/players",
+        "rel": "http://api.relations.wrml.org/common/parent",
+      },
+      "addToFavorites": {
+        "href" : "http://api.soccer.restapi.org/users/42/favorites/{name}",
+        "rel": "http://api.relations.wrml.org/common/addToFavorites",
+      }
+    }
+  }
+  ```
+
+  - A `self` link should be included in response message body representations. The `self` link relation signifies that the href value identifies a resource equivalent to the containing resource.
+  - Minimize the number of advertised *entry point* API URIs. The `docroot`’s representation should provide links to make every other re- source programmatically available.
+  - Links should be used to advertise a resource’s available actions in a state-sensitive manner. REST’s HATEOAS constraint specifies that an API must answer all client requests with resource representations that contain state-sensitive links.
+  
+  ```json
+  {
+    "links" : {
+      "self" : {
+        "href" : "http://api.editor.restapi.org/docs/48679",
+        "rel" : "http://api.relations.wrml.org/common/self"
+      },
+      "cut" : {
+        "href" : "http://api.editor.restapi.org/docs/48679/edit/cut",
+        "rel" : "http://api.relations.wrml.org/editor/edit/cut"
+      },
+      "copy" : {
+        "href" : "http://api.editor.restapi.org/docs/48679/edit/copy",
+        "rel" : "http://api.relations.wrml.org/editor/edit/copy"
+      }
+    }
+  }
+  ```
+
+  - A consistent form should be used to represent media type formats.
+  - A consistent form should be used to represent media type schemas.
+  - A store’s insert link may be used to add a new resource, with a URI specified by the client. To assist clients, a store’s representational form should provide a URI template in the link’s href value.
+- Error representation rules:
+  - A consistent form should be used to represent errors.
+  
+  ```json
+  {
+    "id" : "Text",
+    "description" : "Text"
+  }
+  ```
+
+  - A consistent form should be used to represent error responses.
+  - Consistent error types should be used for common error conditions. Generic error types may be leveraged by a variety of APIs. These error types should be defined once and then shared across all APIs via a service hosting the error schema documents.
