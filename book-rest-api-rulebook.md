@@ -4,7 +4,7 @@ By: Mark Massé. [Purchase the book](https://www.oreilly.com/library/view/rest-a
 
 Date Started: Tuesday, January 12, 2021
 
-Date Finished: ongoing
+Date Finished: Sunday, February 28, 2021
 
 ## Chapter 1: Introduction
 
@@ -244,3 +244,14 @@ Date Finished: ongoing
   - The query component of a URI should be used to embed linked resources. *REST API’s should allow individual client requests to control which linked resources should remain “normal” and which ones should become “embedded”*. This request-time composition approach allows a REST API to present a consistent, fine-grained resource model while empowering its clients to create facades that better match their individual use cases. *Clients use the `embed` query parameter to identify the link relations that they wish to have included, as `fields`, directly in the response’s representation*.
 - JSONP should be supported to provide multi-origin read access from JavaScript. *REST APIs enable JSONP client requests by supporting an optional call back query parameter. If the parameter is present in a request, the API should wrap its normal JSON response body’s data in a JavaScript function call with the callback query parameter’s value as the function’s name*.
 - CORS should be supported to provide multi-origin read/write access from JavaScript. For request methods other than: `GET`, `HEAD`, and `POST`; CORS defines a preflight request interaction. *The preflight request occurs “behind-the-scenes” between a CORS compliant browser and server, in advance of the JavaScript client’s actual request to access a cross-origin resource*. REST APIs may use the CORS-proposed Access-Control-Allow-Origin HTTP header to list the set of origins that are permitted cross-origin access to its resources. Most modern browsers support CORS by sending special HTTP request headers such as Origin and Access-Control-Request-Method. *The Origin header value identifies the requesting JavaScript client’s scheme/host/port source location. The Access-Control-Request-Method header value is sent in the CORS preflight request to indicate which HTTP method will be used in the client’s actual request*.
+
+## Chapter 7: Final Thoughts
+
+- The REST-fulness of APIs continues to be debated by those that create and consume them. In the absence of standards, REST API designers are free to innovate and explore new concepts, which is a good thing. However, when REST API designs eventually converge on a set of common patterns that address each one of the cross-cutting concerns, developers will benefit from the uniformity.
+- Coding a REST API typically means programming an interface that exposes a backend system’s resources to Web-aware clients.
+- The web resource server engine’s configuration data consists of a small set of core constructs, which are summarized below:
+  - **API template**: A named REST API containing a list of resource templates, a list of schemas, and a list of “global” API-level state facts.
+  - **Resource template**: A resource template is a path segment within a REST API’s hierarchical resource model. It has an associated URI template and set of possible schemas that client’s may bind to, at request time, by using media type negotiation.
+  - **Schema**: Schemas are like classes or tables: they are a web application’s structured types. They allow forms (instances consisting of fields and links) to be molded in their image and used to carry the state of a resource.
+  - **Format**: Formats, like HTML, XML, and JSON, are often used on their own to declare the type associated with the content of a message’s body.
+  - **Link relation**: A link relation is a concept borrowed from HTML that adds semantics to links.
