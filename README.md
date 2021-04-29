@@ -34,6 +34,9 @@ I'll try to stick to this structure as much as I can
   - [Clean Code: A Handbook of Agile Software Craftsmanship](book-clean-code.md)
   - [Nginx HTTP Server, 3rd Edition](book-nginx-http-server.md) [✔]
   - [The Docker Book](book-the-docker-book.md) [✔]
+  - [REST API Design Rulebook](book-rest-api-rulebook.md) [✔]
+  - [Thinking Fast and Slow](book-thinking-fast-and-slow.md)
+  - [Designing Data Intensive Applications](book-designing-data-intensive-apps.md)
 
 - Courses
   - [Foundations of Programming: Object-Oriented Design](course-object-oriented-design.md) [✔]
@@ -44,4 +47,5 @@ I'll try to stick to this structure as much as I can
 
 - Documentations
   - [Jenkins Documentation](doc-jenkins.md) [✔]
+  - [Helm Documentation](doc-helm.md)
   - [TypeScript Documentation](doc-typescript.md)

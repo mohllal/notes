@@ -4,7 +4,7 @@ By: Robert C. Martin. [Purchase the book](https://www.amazon.com/Clean-Code-Hand
 
 Date Started: Friday, August 30, 2019
 
-Date Finished: ongoing
+Date Finished: TBD
 
 > Writing clean code is what you must do in order to call yourself a professional.
 > There is no reasonable excuse for doing anything less than your best.

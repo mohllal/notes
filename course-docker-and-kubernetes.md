@@ -4,7 +4,7 @@ By: Stephen Grider. [Purchase the course](https://www.udemy.com/docker-and-kuber
 
 Date Started: Monday, September 21, 2019
 
-Date Finished: Friday, ongoing
+Date Finished: TBD
 
 ## Section 1: Dive into Docker
 

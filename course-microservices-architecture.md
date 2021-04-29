@@ -4,7 +4,7 @@ By: Rag Dhiman. [Purchase the course](https://www.pluralsight.com/courses/micros
 
 Date Started: Tuesday, April 7, 2020
 
-Date Finished: ongoing
+Date Finished: TBD
 
 ## Section 1: Introduction
 

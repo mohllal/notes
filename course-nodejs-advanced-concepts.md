@@ -4,7 +4,7 @@ By: Stephen Grider. [Purchase the course](https://www.udemy.com/course/advanced-
 
 Date Started: Monday, November 8, 2019
 
-Date Finished: ongoing
+Date Finished: TBD
 
 ## Section 1: The Internals of Node.js
 

@@ -4,7 +4,7 @@
 
 Date Started: Friday, October 25, 2019
 
-Date Finished: ongoing
+Date Finished: TBD
 
 ## Tutorials
 
