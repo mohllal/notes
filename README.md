@@ -43,7 +43,8 @@ I'll try to stick to this structure as much as I can
   - [Docker and Kubernetes: The Complete Guide](course-docker-and-kubernetes.md)
   - [Node.js Advanced Concepts](course-nodejs-advanced-concepts.md)
   - [Version Control with Git](course-atlassian-version-control.md) [✔]
-  - [Microservices Architecture](course-microservices-architecture) [✔]
+  - [Microservices Architecture](course-microservices-architecture.md) [✔]
+  - [YC Aspiring Founders](course-yc-aspiring-founders.md) [✔]
 
 - Documentations
   - [Jenkins Documentation](doc-jenkins.md) [✔]
