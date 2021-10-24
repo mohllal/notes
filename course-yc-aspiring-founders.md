@@ -41,12 +41,57 @@ Date Finished: TBD
 - Parents want you to be a doctor: So I think the way to deal with your parents' opinions about what you should do is to treat them like feature requests. Even if your only goal is to please them, the way to do that is not simply to give them what they ask for.
 - A job is the default: Oddly enough, the people who know this best are the very ones trying to get you to stick to the old model. How can Larry and Sergey say you should come work as their employee, when they didn't get jobs themselves?
 
-### Resources
+#### Resources
 
 - [Before the Startup](http://www.paulgraham.com/before.html)
 - [Why to Not Not Start a Startup](http://www.paulgraham.com/notnot.html)
 
 ## Module 2: Generating Startup Ideas
+
+- Most common mistakes founders make when coming up with startup ideas
+  - Believing that you need an amazing idea to get started! Great execution matters more.
+  - Jumping into an idea without evaluating it is a good one.
+  - Starting with a solution instead of a problem. SISP - Solution In Search of a Problem
+  - Believing that startup ideas are hard to find.
+  - Idea quality score
+    - How big is this idea? How big could it be?
+    - Founder / market fit?
+    - How sure are you that this is solving a real problem?
+    - Have a new insight?
+  - Bad reasons to reject startup ideas
+    - Hard to get started
+    - Boring space
+    - Seems too ambitious
+    - Too many competitors: You should actually err on the side of doing things with existing competitors; When founders go into space with no existing competitors they usually find out the reason there are no competitors is because NOBODY WANTS THE PRODUCT.
+  - The best startup ideas are noticed organically.
+    - Start with what your team is especially good at.
+    - Think of things you wish someone else would build for you.
+    - What would you be excited to work on for 10 year!
+    - Look for things that have changed in the world recently.
+    - Find companies that have been successful recently and look for new variants of them.
+    - Ask people you know for problems they want to solve.
+    - Look for industries that seem broken and probably right for disruption.
+
+> Why do so many founders build things no one wants? Because they begin by trying to think of startup ideas. That m.o. is doubly dangerous: it doesn't merely yield few good ideas; it yields bad ideas that sound plausible enough to fool you into working on them.
+
+- When a startup launches, there have to be at least some users who really need what they're making — not just people who could see themselves using it one day, but who want it urgently.
+
+> When you have an idea for a startup, ask yourself: who wants this right now? Who wants this so much that they'll use it even when it's a crappy version one made by a two-person startup they've never heard of? If you can't answer that, the idea is probably bad.
+
+- The verb you want to be using with respect to startup ideas is not "think up" but "notice.
+- Coming up with startup ideas is a question of seeing the obvious. That suggests how weird this process is: you're trying to see things that are obvious, and yet that you hadn't seen.
+
+> Live in the future and build what seems interesting.
+
+- It's exceptionally rare for startups to be killed by competitors — so rare that you can almost discount the possibility. So unless you discover a competitor with the sort of lock-in that would prevent users from choosing you, don't discard the idea.
+- A crowded market is actually a good sign, because it means both that there's demand and that none of the existing solutions are good enough. A startup can't hope to enter a market that's obviously big and yet in which they have no competitors.
+- A good trick for bypassing the schlep and to some extent the unsexy filter is to ask what you wish someone else would build, so that you could use it. What would you pay for right now?
+
+#### Resources
+
+- [How to Get Startup Ideas](http://www.paulgraham.com/startupideas.html)
+- [Schlep Blindness](http://www.paulgraham.com/schlep.html)
+- [Hard Startups](https://blog.samaltman.com/hard-startups)
 
 ## Module 3: Vetting a Startup Idea
 
