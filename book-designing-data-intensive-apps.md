@@ -112,8 +112,6 @@ CREATE
 
 - An *index* is an additional structure that is derived from the primary data. Many databases allow you to add and remove indexes, and this doesn’t affect the contents of the database; it only affects the performance of queries. Maintaining additional structures incurs overhead, especially on writes. For writes, it’s hard to beat the performance of simply appending to a file, because that’s the simplest possible write operation. *Any kind of index usually slows down writes, because the index also needs to be updated every time data is written*.
 
-### Hash Indexes
-
 - Key-value stores are quite similar to the **dictionary type** that can be found in most programming languages, and which is usually implemented as a hash map (hash table). Then the simplest possible indexing strategy is this: **keep an in-memory hash map where every key is mapped to a byte offset in the data file the location at which the value can be found**.
 - To solve the running out of disk space for the log file:
   - **Break the log into segments of a certain size by closing a segment file when it reaches a certain size, and making subsequent writes to a new segment file**.
@@ -149,4 +147,38 @@ CREATE
 - Many data warehouses are used in a fairly formulaic style, known as a **star schema** (also known as dimensional modeling). At the center of the schema is a so-called **fact table**. The name “star schema” comes from the fact that when the table relationships are visualized, the fact table is in the middle, surrounded by its dimension tables; the connections to these tables are like the rays of a star.
 - The idea behind **column-oriented storage** is simple: don’t store all the values from one row together, but store all the values from each column together instead. *If each column is stored in a separate file, a query only needs to read and parse those columns that are used in that query, which can save a lot of work*.
 - **Materialized view**: In a relational data model, it is often defined like a *standard (virtual) view*: a table-like object whose contents are the results of some query. The difference is that a materialized view is an actual copy of the query results, written to disk, whereas a virtual view is just a shortcut for writ‐ ing queries. When you read from a virtual view, the SQL engine expands it into the view’s underlying query on the fly and then processes the expanded query.
-- A common special case of a materialized view is known as a **data cube** or **OLAP cube**. It is a grid of aggregates grouped by different dimensions. The advantage of a materialized data cube is that certain queries become very fast because they have effectively been precomputed. 
+- A common special case of a materialized view is known as a **data cube** or **OLAP cube**. It is a grid of aggregates grouped by different dimensions. The advantage of a materialized data cube is that certain queries become very fast because they have effectively been precomputed.
+
+## Chapter 4: Encoding and Evolution
+
+- The translation from the in-memory representation to a byte sequence is called **encoding** (also known as *serialization* or *marshalling*) and the reverse is called **decoding** (*parsing*, *deserialization*, *unmarshalling*).
+- JSON, XML, and CSV are textual formats, and thus somewhat human-readable (although the syntax is a popular topic of debate). Besides the superficial syntactic issues, they also have some subtle problems:
+  - There is a lot of ambiguity around the encoding of numbers. In XML and CSV, you cannot distinguish between a number and a string that happens to consist of digits (except by referring to an external schema). JSON distinguishes strings and numbers, but it doesn’t distinguish integers and floating-point numbers, and it doesn’t specify a precision.
+  - JSON and XML have good support for Unicode character strings (i.e., human- readable text), but they don’t support binary strings (sequences of bytes without a character encoding).
+  - There is optional schema support for both XML and JSON. These schema languages are quite powerful, and thus quite complicated to learn and implement.
+  - CSV does not have any schema, so it is up to the application to define the mean‐ ing of each row and column.
+- Binary encoding formats:
+  - Thrift (Facebook).
+    - BinaryProtocol - 53B of 81B JSON.
+    - CompactProtocol - 34B of 81B JSON.
+    - DenseProtocol
+  - Protocol Buffers (Google) - 33B of 81B JSON.
+  - Avro (Apache) - 32B of 81B JSON.
+- Binary encodings based on schemas are viable:
+  - They can be much more compact than the various “binary JSON” variants, since they can omit field names from the encoded data.
+  - The schema is a valuable form of documentation, and because the schema is required for decoding, you can be sure that it is up to date (whereas manually maintained documentation may easily diverge from reality).
+  - Keeping a database of schemas allows you to check forward and backward compatibility of schema changes, before anything is deployed.
+  - For users of statically typed programming languages, the ability to generate code from the schema is useful, since it enables type checking at compile time.
+- The RPC model tries to make a request to a remote net‐ work service look the same as calling a function or method in your programming language, within the same process (this abstraction is called location transparency).
+- The backward and forward compatibility properties of an RPC scheme are inherited from whatever encoding it uses:
+  - Thrift, gRPC (Protocol Buffers), and Avro RPC can be evolved according to the compatibility rules of the respective encoding format.
+  - In SOAP, requests and responses are specified with XML schemas. These can be evolved, but there are some subtle pitfalls.
+  - RESTful APIs most commonly use JSON (without a formally specified schema) for responses, and JSON or URI-encoded/form-encoded request parameters for requests. Adding optional request parameters and adding new fields to response objects are usually considered changes that maintain compatibility.
+- For RESTful APIs, common approaches are to use a version number in the URL or in the HTTP Accept header. For services that use API keys to identify a particular client, another option is to store a client’s requested API version on the server and to allow this version selection to be updated through a separate administrative interface.
+- Using a message broker has several advantages compared to direct RPC:
+  - It can act as a buffer if the recipient is unavailable or overloaded, and thus improve system reliability.
+  - It can automatically redeliver messages to a process that has crashed, and thus prevent messages from being lost.
+  - It avoids the sender needing to know the IP address and port number of the recipient (which is particularly useful in a cloud deployment where virtual machines often come and go).
+  - It allows one message to be sent to several recipients.
+  - It logically decouples the sender from the recipient (the sender just publishes messages and doesn’t care who consumes them).
+- Message brokers typically don’t enforce any particular data model—a message is just a sequence of bytes with some metadata, so you can use any encoding format. If the encoding is backward and forward compatible, you have the greatest flexibility to change publishers and consumers independently and deploy them in any order.
