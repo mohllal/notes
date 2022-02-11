@@ -41,7 +41,7 @@ Date Finished: TBD
 - Parents want you to be a doctor: So I think the way to deal with your parents' opinions about what you should do is to treat them like feature requests. Even if your only goal is to please them, the way to do that is not simply to give them what they ask for.
 - A job is the default: Oddly enough, the people who know this best are the very ones trying to get you to stick to the old model. How can Larry and Sergey say you should come work as their employee, when they didn't get jobs themselves?
 
-#### Resources
+### Module 1 Resources
 
 - [Before the Startup](http://www.paulgraham.com/before.html)
 - [Why to Not Not Start a Startup](http://www.paulgraham.com/notnot.html)
@@ -87,7 +87,7 @@ Date Finished: TBD
 - A crowded market is actually a good sign, because it means both that there's demand and that none of the existing solutions are good enough. A startup can't hope to enter a market that's obviously big and yet in which they have no competitors.
 - A good trick for bypassing the schlep and to some extent the unsexy filter is to ask what you wish someone else would build, so that you could use it. What would you pay for right now?
 
-#### Resources
+### Module 2 Resources
 
 - [How to Get Startup Ideas](http://www.paulgraham.com/startupideas.html)
 - [Schlep Blindness](http://www.paulgraham.com/schlep.html)
