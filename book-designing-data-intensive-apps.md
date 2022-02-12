@@ -182,3 +182,54 @@ CREATE
   - It allows one message to be sent to several recipients.
   - It logically decouples the sender from the recipient (the sender just publishes messages and doesn’t care who consumes them).
 - Message brokers typically don’t enforce any particular data model—a message is just a sequence of bytes with some metadata, so you can use any encoding format. If the encoding is backward and forward compatible, you have the greatest flexibility to change publishers and consumers independently and deploy them in any order.
+
+## Chapter 5: Replication
+
+- Scaling to higher load:
+  - Shared-memory architecture.
+  - Shared-disk architecture.
+  - Shared-nothing architecture.
+- There are two common ways data is distributed across multiple nodes:
+  - **Replication**: Keeping a copy of the same data on several different nodes, potentially in differ‐ ent locations. Replication provides redundancy: if some nodes are unavailable, the data can still be served from the remaining nodes.
+  - **Partitioning**: Splitting a big database into smaller subsets called partitions so that different partitions can be assigned to different nodes (also known as sharding).
+- Replication means keeping a copy of the same data on multiple machines that are connected via a network:
+  - To keep data geographically close to your users (and thus reduce latency).
+  - To allow the system to continue working even if some of its parts have failed (and thus increase availability).
+  - To scale out the number of machines that can serve read queries (and thus increase read throughput).
+- Replication algorithms:
+  - Leader based replication
+    - Single-leader (active/passive or master/slave)
+    - Multi-leader (active/active or master/master)
+  - Leaderless based replication (coordinated replication)
+- Single leader-based replication strategies:
+  - Asynchronous replication
+  - Semi-synchronous replication
+  - Synchronous replication
+- How do you achieve high availability with single leader-based replication?
+  - Follower failure: Catch-up recovery
+  - Leader failure: Failover
+- How does single leader-based replication work under the hood?
+  - Statement-based replication
+  - Write-ahead log (WAL) shipping
+  - Logical (row-based) log replication
+  - Trigger-based replication
+- *Eventual consistency* is inconsistency in the database caused by the replication lag between the leader nodes and its followers when read queries are issued to one of the followers nodes.
+- Replication lag problems:
+  - Read-after-write consistency
+  - Monotonic reads
+  - Consistent prefix reads
+- Use cases for multi-leader replication
+  - Multi-datacenter operation
+  - Clients with offline operation
+  - Collaborative editing
+- Multi-leader replication problems:
+  - Handling write conflicts
+  - Converging toward a consistent state
+- Multi-leader replication topologies:
+  - All-to-all (A-A) topology
+  - Star (S) topology
+  - Circular (C) topology
+- Quorums for reading and writing: if there are `n` replicas, every write must be confirmed by `w` nodes to be considered successful, and we must query at least `r` nodes for each read. As long as `w + r > n`, we expect to get an up-to-date value when reading, because at least one of the `r` nodes we’re reading from must be up to date. Reads and writes that obey these `r` and `w` values are called quorum reads and writes.
+- Last write wins (discarding concurrent writes)
+- The “happens-before” relationship and concurrency
+- Version vectors: Each replica increments its own version number when processing a write, and also keeps track of the version numbers it has seen from each of the other replicas. This information indicates which values to overwrite and which values to keep as siblings.
