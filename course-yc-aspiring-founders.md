@@ -1,9 +1,9 @@
 # YC: Aspiring Founders Program
 
-By: Startup School. [Take the course](https://www.startupschool.org/aspiring-founders)
+By: Startup School.
+[Course Link](https://www.startupschool.org/aspiring-founders).
 
 Date Started: Saturday, August 14, 2021
-
 Date Finished: TBD
 
 ## Module 1: Should I Start a Startup?

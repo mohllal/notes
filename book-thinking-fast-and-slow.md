@@ -1,9 +1,9 @@
 # Thinking Fast and Slow
 
-By: Daniel Kahneman. [Purchase the book](https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555)!
+By: Daniel Kahneman.
+[Book Link](https://www.amazon.com/Thinking-Fast-Slow-Daniel-Kahneman/dp/0374533555).
 
 Date Started: Thursday, March 25, 2021
-
 Date Finished: TBD
 
 > Systematic errors are known as biases, and they recur predictably in particular circumstances. When the handsome and confident speaker bounds onto the stage, for example, you can anticipate that the audience will judge his comments more favorably than he deserves. The availability of a diagnostic label for this bias—the halo effect—makes it easier to anticipate, recognize, and understand.

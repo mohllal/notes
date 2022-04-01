@@ -1,9 +1,8 @@
 # TypeScript Documentation
 
-[Docs](https://www.typescriptlang.org/index.html)!
+[Documentation Link](https://www.typescriptlang.org/index.html).
 
 Date Started: Friday, October 25, 2019
-
 Date Finished: TBD
 
 ## Tutorials

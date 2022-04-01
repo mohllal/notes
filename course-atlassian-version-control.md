@@ -1,9 +1,9 @@
 # Version Control with Git
 
-By: Atlassian. [Purchase the course](https://www.coursera.org/learn/version-control-with-git/)!
+By: Atlassian.
+[Course Link](https://www.coursera.org/learn/version-control-with-git/).
 
 Date Started: Tuesday, April 7, 2020
-
 Date Finished: Saturday, April 25, 2020
 
 ## Week 1: Our First Repository

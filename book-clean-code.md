@@ -1,9 +1,9 @@
 # Clean Code: A Handbook of Agile Software Craftsmanship
 
-By: Robert C. Martin. [Purchase the book](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882)!
+By: Robert C. Martin.
+[Book Link](https://www.amazon.com/Clean-Code-Handbook-Software-Craftsmanship/dp/0132350882).
 
 Date Started: Friday, August 30, 2019
-
 Date Finished: TBD
 
 > Writing clean code is what you must do in order to call yourself a professional.

@@ -1,9 +1,9 @@
 # Designing Data Intensive Applications
 
-By: Martin Kleppmann. [Purchase the book](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/)!
+By: Martin Kleppmann.
+[Book Link](https://www.oreilly.com/library/view/designing-data-intensive-applications/9781491903063/).
 
 Date Started: Saturday, March 27, 2021
-
 Date Finished: TBD
 
 ## Chapter 1: Reliable, Scalable, and Maintainable Applications

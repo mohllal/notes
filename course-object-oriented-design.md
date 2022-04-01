@@ -1,12 +1,12 @@
 # Foundations of Programming: Object-Oriented Design
 
-By: Simon Allardice. [Purchase the course](https://www.simonallardice.com/courses)!
+By: Simon Allardice.
+[Course Link](https://www.simonallardice.com/courses).
 
 Date Started: Monday, August 12, 2019
-
 Date Finished: Friday, August 30, 2019
 
-### Section 4: Domain Modeling
+## Section 4: Domain Modeling
 
 - Creating a conceptual model is the process of identifying the main system's objects generic objects, and describing the associations and interactions between each other.
 
@@ -28,7 +28,7 @@ Date Finished: Friday, August 30, 2019
 
 - CRC cards (for Class, Responsibilities, Collaborators) are usually written on index cards. Each CRC card represents one class and it has three seconds class name, class responsibilities, and collaborators.
 
-### Section 5: Creating Classes
+## Section 5: Creating Classes
 
 - Class diagram is divided into three sections class name, attributes, and operations.
 - Classes are named in singular not plural, and they must start with a capital letter.
@@ -44,7 +44,7 @@ Date Finished: Friday, August 30, 2019
 - Static methods can only accessed static variables.
 - Static members are shown in UML diagrams with an underline.
 
-### Section 6: Inheritance and Composition
+## Section 6: Inheritance and Composition
 
 - Inheritance describes an *is-a* relationship.
 - In UML, inheritance is represented with the *solid open arrow*. If one class (child class, or subclass) is pointed to the other class (parent class, or superclass) it means that it's inherited from it.
@@ -76,7 +76,7 @@ Date Finished: Friday, August 30, 2019
 - State machine diagram contains rectangles with rounded corners which represent different states that the object can live in and the transition between one to the other and what causes it.
 - Activity diagrams are the closest thing to the classic flowchart diagrams and they detail the steps and decisions that can occur as you flow through part of the system.
 
-### Section 8: Object-Oriented Design Patterns
+## Section 8: Object-Oriented Design Patterns
 
 - Design patterns are well-tested solutions or best practices to common problems and issues we run into in software development.
 - Design patterns can be splitted into three groups: creational, structural, and behavioral.
@@ -86,7 +86,7 @@ Date Finished: Friday, August 30, 2019
 - In the memento pattern, the catetaker object is the object that deals with when and why the originator needs to save its state or to revert back to a previous state.
 - In the memento pattern, the memento object is the object that saves the important parts of the originator object that needs to be returned to a particular state.
 
-### Section 9: Object-Oriented Design Patterns
+## Section 9: Object-Oriented Design Patterns
 
 - Some examples of general development principles:
   
@@ -129,7 +129,7 @@ Date Finished: Friday, August 30, 2019
 
 - Cohesion is the level that a class contains focus, related behaviors.
 
-### Section 10: Conclusion
+## Section 10: Conclusion
 
 - | Language   | Inherence  | Typing  | Abstract Classes | Interfaces       |
   | ---------- | ---------- | ------- | ---------------- | ---------------- |

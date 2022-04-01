@@ -1,9 +1,9 @@
 # Node JS: Advanced Concepts
 
-By: Stephen Grider. [Purchase the course](https://www.udemy.com/course/advanced-node-for-developers)!
+By: Stephen Grider.
+[Course Link](https://www.udemy.com/course/advanced-node-for-developers).
 
 Date Started: Monday, November 8, 2019
-
 Date Finished: TBD
 
 ## Section 1: The Internals of Node.js

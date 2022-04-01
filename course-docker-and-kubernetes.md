@@ -1,9 +1,9 @@
 # Docker and Kubernetes: The Complete Guide
 
-By: Stephen Grider. [Purchase the course](https://www.udemy.com/docker-and-kubernetes-the-complete-guide/)!
+By: Stephen Grider.
+[Course Link](https://www.udemy.com/docker-and-kubernetes-the-complete-guide/).
 
 Date Started: Monday, September 21, 2019
-
 Date Finished: TBD
 
 ## Section 1: Dive into Docker

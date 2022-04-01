@@ -1,9 +1,9 @@
 # REST API Design Rulebook
 
-By: Mark Massé. [Purchase the book](https://www.oreilly.com/library/view/rest-api-design/9781449317904/)!
+By: Mark Massé.
+[Book Link](https://www.oreilly.com/library/view/rest-api-design/9781449317904/).
 
 Date Started: Tuesday, January 12, 2021
-
 Date Finished: Sunday, February 28, 2021
 
 ## Chapter 1: Introduction

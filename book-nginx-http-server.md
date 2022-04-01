@@ -1,9 +1,9 @@
 # Nginx HTTP Server, 3rd Edition
 
-By: Clément Nedelcu. [Purchase the book](https://www.packtpub.com/networking-and-servers/nginx-http-server-third-edition)!
+By: Clément Nedelcu.
+[Book Link](https://www.packtpub.com/networking-and-servers/nginx-http-server-third-edition).
 
 Date Started: Saturday, August 31, 2019
-
 Date Finished: Friday, October 25, 2019
 
 ## Chapter 1: Downloading and Installing Nginx

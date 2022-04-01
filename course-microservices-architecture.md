@@ -1,9 +1,9 @@
 # Microservices Architecture
 
-By: Rag Dhiman. [Purchase the course](https://www.pluralsight.com/courses/microservices-architecture)!
+By: Rag Dhiman.
+[Course Link](https://www.pluralsight.com/courses/microservices-architecture).
 
 Date Started: Tuesday, April 7, 2020
-
 Date Finished: TBD
 
 ## Section 1: Introduction

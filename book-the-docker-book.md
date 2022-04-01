@@ -1,9 +1,9 @@
 # The Docker Book
 
-By: James Turnbull. [Purchase the book](https://dockerbook.com/)!
+By: James Turnbull.
+[Book Link](https://www.amazon.com/Docker-Book-Containerization-new-virtualization-ebook/dp/B00LRROTI4).
 
 Date Started: Tuesday, September 24, 2019
-
 Date Finished: Sunday, November 24, 2019
 
 ## Chapter 1: Introduction

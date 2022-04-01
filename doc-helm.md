@@ -1,9 +1,8 @@
 # Helm Documentation
 
-[Docs](https://helm.sh/docs/)!
+[Documentation Link](https://helm.sh/docs/).
 
 Date Started: Sunday, February 28, 2021
-
 Date Finished: TBD
 
 ## Home

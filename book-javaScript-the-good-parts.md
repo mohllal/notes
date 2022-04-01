@@ -1,12 +1,12 @@
 # JavaScript: The Good Parts, 1st Edition
 
-By: Douglas Crockford. [Purchase the book](https://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742)!
+By: Douglas Crockford.
+[Book Link](https://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742).
 
 Date Started: Tuesday, August 13, 2019
-
 Date Finished: Sunday, August 25, 2019
 
-### Chapter 5: Inheritance
+## Chapter 5: Inheritance
 
 - In classical languages, objects are instances of classes, and a class can inherit from another class. JavaScript is a prototypal language, which means that objects inherit directly from other objects.
 
@@ -42,7 +42,7 @@ Date Finished: Sunday, August 25, 2019
 
 - A durable object is simply a collection of functions that act as capabilities. A durable object cannot be compromised. Access to a durable object does not give an attacker the ability to access the internal state of the object except as permitted by the methods.
 
-### Chapter 6: Arrays
+## Chapter 6: Arrays
 
 - JavaScript provides an object that has some array-like characteristics. It converts array subscripts into strings that are used to make properties. It is significantly slower than a real array data structure.
 
@@ -75,7 +75,7 @@ Date Finished: Sunday, August 25, 2019
   };
   ```
 
-### Chapter 7: Regular Expressions
+## Chapter 7: Regular Expressions
 
 - A regular expression is the specification of the syntax of a simple language. Regular
   expressions are used with methods to search, replace, and extract information from strings.
@@ -108,14 +108,14 @@ Date Finished: Sunday, August 25, 2019
 
 - The `\f` is the formfeed character, `\n` is the newline character, `\r` is the carriage return character, `\t` is the tab character, and `\u` allows for specifying a Unicode character as a 16-bit hex constant.
 
-### Chapter 8: Methods
+## Chapter 8: Methods
 
 - Some useful Array methods: `array.join(separator)`, `array.reverse()`, `array.slice(start, end)`, `array.sort(comparefunc)`, and `array.unshift(item…)`.
 - Some useful Number methods: `number.toPrecision(precision)`, and `number.toString(radix)`.
 - Some useful Object methods: `object.hasOwnProperty(name)`.
 - Some usefull String methods: `string.charAt(pos)`, `string.indexOf(searchString, start)`, `string.lastIndexOf(searchString, start)`, `string.match(regexp)`, `string.replace(searchValue, replaceValue)`, `string.search(regexp)`, `string.toLowerCase()` and `string.toUpperCase()`.
 
-### Chapter 9: Style
+## Chapter 9: Style
 
 - JavaScript’s loose typing and excessive error tolerance provide little compile-time assurance of our programs’ quality, so to compensate, we should code with strict discipline.
 
@@ -141,7 +141,7 @@ Date Finished: Sunday, August 25, 2019
 
 - Closures can be used to provide further information hiding, increasing the strength of modules.
 
-### Chapter 10: Beautiful Features
+## Chapter 10: Beautiful Features
 
 - Features can have a negative value to consumers because they make the products more difficult to understand and use. It turns out that designs that just work are much harder to produce than designs that assemble long lists of features.
 
