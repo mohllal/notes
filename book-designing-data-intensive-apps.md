@@ -233,3 +233,25 @@ CREATE
 - Last write wins (discarding concurrent writes)
 - The “happens-before” relationship and concurrency
 - Version vectors: Each replica increments its own version number when processing a write, and also keeps track of the version numbers it has seen from each of the other replicas. This information indicates which values to overwrite and which values to keep as siblings.
+
+## Chapter 6: Partitioning
+
+- Partitioning of Key-Value Data:
+  - Partitioning by Key Range.
+  - Partitioning by Hash of Key.
+- Partitioning and Secondary Indexes:
+  - Partitioning Secondary Indexes by Document: sending the query to all partitions, and combine all the results you get back is sometimes known as *scatter/ gather*, and it can make read queries on secondary indexes quite expensive.
+  - Partitioning Secondary Indexes by Term: constructing a global index that covers data in all partitions.
+- Rebalancing Partitions:
+  - After rebalancing, the load (data storage, read and write requests) should be shared fairly between the nodes in the cluster.
+  - While rebalancing is happening, the database should continue accepting reads and writes.
+  - No more data than necessary should be moved between nodes, to make rebalanc‐ ing fast and to minimize the network and disk I/O load.
+- Strategies for Rebalancing:
+  - hash mod N.
+  - Fixed number of partitions.
+  - Dynamic partitioning.
+- On a high level, there are a few different approaches to the request re-routing problem:
+  - Allow clients to contact any node (e.g., via a round-robin load balancer). If that node coincidentally owns the partition to which the request applies, it can handle the request directly; otherwise, it forwards the request to the appropriate node, receives the reply, and passes the reply along to the client.
+  - Send all requests from clients to a routing tier first, which determines the node that should handle each request and forwards it accordingly. This routing tier does not itself handle any requests; it only acts as a partition-aware load balancer.
+  - Require that clients be aware of the partitioning and the assignment of partitions to nodes. In this case, a client can connect directly to the appropriate node, without any intermediary.
+- Many distributed data systems rely on a separate coordination service such as ZooKeeper to keep track of this cluster metadata, as illustrated in Figure 6-8. Each node registers itself in ZooKeeper, and ZooKeeper maintains the authoritative mapping of partitions to nodes. Other actors, such as the routing tier or the partitioning-aware client, can subscribe to this information in ZooKeeper. Whenever a partition changes ownership, or a node is added or removed, ZooKeeper notifies the routing tier so that it can keep its routing information up to date.
