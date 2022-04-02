@@ -36,7 +36,7 @@ A large chunk of these notes will not be organized very nicely, no highlights or
   - [REST API Design Rulebook](book-rest-api-rulebook.md)
   - [Thinking Fast and Slow](book-thinking-fast-and-slow.md)
   - [Designing Data Intensive Applications](book-designing-data-intensive-apps.md)
-  - [Designing Data Intensive Applications](book-designing-data-intensive-apps.md)
+  - [Microservices Patterns](book-microservices-patterns.md)
 
 - Courses
   - [Foundations of Programming: Object-Oriented Design](course-object-oriented-design.md)
