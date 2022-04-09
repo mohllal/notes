@@ -8,7 +8,7 @@ Date Finished: TBD
 
 ## Chapter 1: Escaping Monolithic Hell
 
-- Bnefits of the monolithic architecture:
+- Benefits of the monolithic architecture:
   - Simple to develop.
   - Easy to make radical changes to the application.
   - Straightforward to test.
@@ -20,15 +20,15 @@ Date Finished: TBD
   - Path from commit to deployment is long and arduous.
   - Scaling is difficult.
   - Reliability is hard to maintain.
-  - Locked into osbolete technology stack.
-- Adrian Cockcroft, formerly of Netflix, defines a microservice architecture as a service-oriented architecture composed of loosely coupled elements that have bounded contexts.
+  - Locked into obsolete technology stack.
+- Adrian Cockcroft, formerly of Netflix, defines a Microservice architecture as a service-oriented architecture composed of loosely coupled elements that have bounded contexts.
 - The 3D scale cube:
-  - x-axis scaling load balances requests accross multiple instances a.k.a **horizontal duplication**.
-  - y-axis scaling decomposes an application into services a.k.a **functional decomposion**.
+  - x-axis scaling load balances requests across multiple instances a.k.a **horizontal duplication**.
+  - y-axis scaling decomposes an application into services a.k.a **functional decomposition**.
   - z-axis scaling runs multiple instances of the monolith application, but unlike X-axis scaling, each instance is responsible for only a subset of the data a.k.a **data partitioning**.
-- A key characteristic of the microservice architecture is that the services are loosely coupled and communicate only via APIs. One way to achieve loose coupling is by *each service having its own datastore*. Each one can be independently developed, tested, deployed, and scaled. Also, this architecture does a good job of preserving modularity. A developer can’t bypass a service’s API and access its internal components.
-- SOA applications typically use heavyweight technologies such as SOAP and other WS* stan- dards. They often use an ESB, a smart pipe that contains business and message-processing logic to integrate the services.
-- Benefits of the microservice architecture:
+- A key characteristic of the Microservice architecture is that the services are loosely coupled and communicate only via APIs. One way to achieve loose coupling is by *each service having its own datastore*. Each one can be independently developed, tested, deployed, and scaled. Also, this architecture does a good job of preserving modularity. A developer can’t bypass a service’s API and access its internal components.
+- SOA applications typically use heavyweight technologies such as SOAP and other WS* standards. They often use an ESB, a smart pipe that contains business and message-processing logic to integrate the services.
+- Benefits of the Microservice architecture:
   - Enables the continuous delivery and deployment of large, complex applications.
     - It has the testability required by continuous delivery/deployment.
     - It has the deployability required by continuous delivery/deployment.
@@ -38,7 +38,7 @@ Date Finished: TBD
   - Better fault isolation
   - Easily experimenting and adoption of new technologies.
   - Enables teams to be autonomous.
-- Drawbacks of the microservice architecture:
+- Drawbacks of the Microservice architecture:
   - Finding the right services is challenging.
   - Distributed systems are complex
   - Deploying features spanning multiple services needs careful coordination.
@@ -72,3 +72,59 @@ Date Finished: TBD
   - **Audit logging**: Log user actions.
 
 > Continuous Delivery is the ability to get changes of all types—including new features, configuration changes, bug fixes and experiments—into production, or into the hands of users, safely and quickly in a sustainable way.
+
+## Chapter 2: Decomposition Strategies
+
+> The software architecture of a computing system is the set of structures needed to reason about the system, which comprise software elements, relations among them, and properties of both.
+
+- The **4+1 view** model of software architecture:
+  - *Logical* view: The software elements that are created by developers. In object-oriented languages, these elements are classes and packages. The relations between them are the relationships between classes and packages, including inheritance, associations, and depends-on.
+  - *Implementation* view: The output of the build system. This view consists of modules, which represent packaged code, and components, which are executable or deployable units consisting of one or more modules.
+  - *Process* view: The components at runtime. Each element is a process, and the relations between processes represent interprocess communication.
+  - *Deployment* view: How the processes are mapped to machines. The elements in this view consist of (physical or virtual) machines and the processes. The relations between machines represent networking.
+  - Additionally, there are the *scenarios*—the +1 in the 4+1 model— that animate views. Each scenario describes how the various architectural components within a particular view collaborate in order to handle a request.
+- An application has two categories of requirements:
+  - **Functional requirements**: Which define what the application must do. They’re usually in the form of use cases or user stories.
+  - **Quality of service requirements a.k.a non-functional requirements**: Which define the runtime qualities such as scalability and reliability. They also define development time qualities including maintainability, testability, and deployability.
+
+> An architectural style, then, defines a family of such systems in terms of a pattern of structural organization. More specifically, an architectural style determines the vocabulary of components and connectors that can be used in instances of that style, together with a set of constraints on how they can be combined.
+
+- A **layered architecture** organizes software elements into layers. Each layer has a well-defined set of responsibilities. A layered architecture also constraints the dependencies between the layers. *A layer can only depend on either the layer immediately below it (if strict layering) or any of the layers below it*.
+- Three-tier architecture is the layered architecture applied to the logical view. It organizes the application’s classes into the following tiers or layers:
+  - **Presentation layer**: Contains code that implements the user interface or external APIs.
+  - **Business logic layer**: Contains the business logic.
+  - **Persistence layer**: Implements the logic of interacting with the database.
+- Drawbacks of the layered architecture style:
+  - **Single presentation layer**: It doesn’t represent the fact that an application is likely to be invoked by more than just a single system.
+  - **Single persistence layer**: It doesn’t represent the fact that an application is likely to interact with more than just a single database.
+  - **Defines the business logic layer as depending on the persistence layer**: In theory, this dependency prevents testing the business logic without the database.
+- The hexagonal architecture style organizes the logical view in a way that *places the business logic at the center*.
+  - **Inbound adapters**: Instead of the presentation layer, the application has one or more inbound adapters that handle requests from the outside by invoking the business logic.
+  - **Outbound adapters**: Instead of a data persistence tier, the application has one or more outbound adapters that are invoked by the business logic and invoke external applications.
+  - A key characteristic and benefit of this architecture is that the business logic doesn’t depend on the adapters. Instead, they depend upon it.
+  - **The business logic has one or more ports**. A port defines a set of operations and is how the business logic interacts with what’s outside of it.
+- The microservice architecture is an architectural style. It structures the implementation view as a set of multiple components: executables or WAR files. The components are services, and the connectors are the communication protocols that enable those services to collaborate. Each service has its own logical view architecture, which is typically a hexagonal architecture.
+- A service is a standalone, independently deployable software component that implements some useful functionality. A service’s API encapsulates its internal implementation. Unlike in a monolith, a developer can’t write code that bypasses its API. As a result, the microservice architecture enforces the application’s modularity.
+- A system operation is an abstraction of a request that the application must handle. It’s either a command, which updates data, or a query, which retrieves data. The behavior of each command is defined in terms of an abstract domain model, which is also derived from the requirements. The system operations become the architectural scenarios that illustrate how the services collaborate.
+- Decomposition obstacles:
+  - Network latency.
+  - Synchronous communication between services reduces availability.
+  - Maintain data consistency across services.
+  - Obtaining a consistent view of the data.
+  - God classes.
+- A three-step process for defining an application’s microservice architecture:
+  - **Determine system operations**.
+    - Sketch a high-level domain model for the application.
+    - Identify the requests that the application must handle. There are two types of system operations:
+      - Commands: System operations that create, update, and delete data.
+      - Queries: System operations that read (query) data.
+  - **Determine the decomposition into services**.
+    - Defining services by applying the Decompose by **business capability pattern**
+    - Defining services by applying the Decompose by **sub-domain pattern**
+  - **Determine each service’s APIs**.
+- Responsibility principle (SRP): A class should have only one reason to change.
+- Common closure principle (CCP): The classes in a package should be closed together against the same kinds of changes. A change that affects a package affects all the classes in that package.
+- The starting point for defining the service APIs is to map each system operation to a service. After that, we decide whether a service needs to collaborate with others to implement a system operation. If collaboration is required, we then determine what APIs those other services must provide in order to support the collaboration.
+- Defining service APIs:
+  - Assigning system operations to services.
+  - Determine the APIs required to support collaboration between services.
