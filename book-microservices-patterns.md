@@ -128,3 +128,72 @@ Date Finished: TBD
 - Defining service APIs:
   - Assigning system operations to services.
   - Determine the APIs required to support collaboration between services.
+
+## Chapter 3: Interprocess Communication
+
+- Services can use **synchronous request/response-based communication** mechanisms, such as HTTP-based REST or gRPC. Alternatively, they can use **asynchronous, message-based communication** mechanisms such as AMQP or STOMP. There are also a variety of different messages formats. Services can use human-readable, text-based formats such as JSON or XML. Alternatively, they could use a more efficient binary format such as Avro or Protocol Buffers.
+- There are a variety of client-service interaction styles:
+  - The first dimension is whether the interaction is one-to-one or one-to-many
+    - One-to-one: Each client request is processed by exactly one service.
+      - Request/response: A service client makes a request to a service and waits for a response.
+      - Asynchronous request/response: A service client sends a request to a service, which replies asynchronously.
+      - One-way notifications: A service client sends a request to a service, but no reply is expected or sent.
+    - One-to-many: Each request is processed by multiple services.
+      - Publish/subscribe: A client publishes a notification message, which is consumed by zero or more interested services.
+      - Publish/async responses: A client publishes a request message and then waits for a certain amount of time for responses from interested services.
+  - The second dimension is whether the interaction is synchronous or asynchronous:
+    - Synchronous: The client waits for the service to respond before it can send another request.
+    - Asynchronous: The client sends requests to the service as soon as it receives them.
+- The Semantic Versioning specification (Semvers) requires a version number to consist of three parts: `MAJOR.MINOR.PATCH`:
+  - MAJOR: When you make an incompatible change to the API.
+  - MINOR: When you make backward-compatible enhancements to the API.
+  - PATCH: When you make a backward-compatible bug fix.
+- The text-based formats such as JSON and XML have an advantage that not only are they human readable, they’re self describing. A JSON message is a collection of named properties. Similarly, an XML message is effectively a collection of named elements and values. This format enables a consumer of a message to pick out the values of interest and ignore the rest. Consequently, many changes to the message schema can easily be backward-compatible.
+- The binary formats like the Protocol Buffers and Avro. Both formats provide a typed IDL for defining the structure of your messages. A compiler then generates the code that serializes and deserializes the messages.
+
+> REST provides a set of architectural constraints that, when applied as a whole, emphasizes scalability of component interactions, generality of interfaces, independent deployment of components, and intermediary components to reduce interaction latency, enforce security, and encapsulate legacy systems.
+
+- REST APIs challenges:
+  - Fetching multiple resources in a single request.
+  - Mapping operations to HTTP verbs.
+- gRPC is a binary message-based protocol, and this means that you’re forced to take an API-first approach to service design. You define your gRPC APIs using a Protocol Buffers-based IDL, which is Google’s language neutral mechanism for serializing structured data. You use the Protocol Buffer compiler to generate client-side stubs and server-side skeletons.
+- Circuit breaker pattern is an RPI proxy that immediately rejects invocations for a timeout period after the number of consecutive failures exceeds a specified threshold.
+- Robust RPI proxies:
+  - **Network timeouts**: Never block indefinitely and always use timeouts when wait- ing for a response. Using timeouts ensures that resources are never tied up indefinitely.
+  - **Limiting the number of outstanding requests from a client to a service**: Impose an upper bound on the number of outstanding requests that a client can make to a particular service. If the limit has been reached, it’s probably pointless to make additional requests, and those attempts should fail immediately.
+  - **Circuit breaker pattern**: Track the number of successful and failed requests, and if the error rate exceeds some threshold, trip the circuit breaker so that further attempts fail immediately. A large number of requests failing suggests that the service is unavailable and that sending more requests is pointless. After a timeout period, the client should try again, and, if successful, close the circuit breaker.
+- The service discovery mechanism updates the service registry when service instances start and stop. When a client invokes a service, the service discovery mechanism queries the service registry to obtain a list of available service instances and routes the request to one of them.
+There are two main ways to implement service discovery:
+  - The services and their clients interact directly with the service registry.
+  - The deployment infrastructure handles service discovery.
+- **3rd party registration**: Service instances are automatically registered with the service registry by a third party.
+- **Server-side discovery**: A client makes a request to a router, which is responsible for service discovery.
+- Messages types:
+  - **Document**: A generic message that contains only data. The receiver decides how to interpret it. The reply to a command is an example of a document message.
+  - **Command**: A message that’s the equivalent of an RPC request. It specifies the operation to invoke and its parameters.
+  - **Event**: A message indicating that something notable has occurred in the sender. An event is often a domain event, which represents a state change of a domain object.
+- Messaging channels types:
+  - A **point-to-point** channel delivers a message to exactly one of the consumers that is reading from the channel. Services use point-to-point channels for the one-to-one interaction styles.
+  - A **publish-subscribe** channel delivers each message to all of the attached consumers. Services use publish-subscribe channels for the one-to-many interaction styles.
+- The broker-less messaging architecture benefits:
+  - Allows lighter network traffic and better latency, because messages go directly from the sender to the receiver, instead of having to go from the sender to the message broker and from there to the receiver
+  - Eliminates the possibility of the message broker being a performance bottleneck or a single point of failure.
+  - Features less operational complexity, because there is no message broker to set up and maintain.
+- The broker-less messaging architecture challenges:
+  - Services need to know about each other’s locations and must therefore use one of the discovery mechanisms describer.
+  - It offers reduced availability, because both the sender and receiver of a message must be available while the message is being exchanged.
+  - Implementing mechanisms, such as guaranteed delivery, is more challenging.
+- The broker-based messaging architecture benefits:
+  - Loose coupling: A client makes a request by simply sending a message to the appropriate channel. The client is completely unaware of the service instances. 
+  - Message buffering: The message broker buffers messages until they can be processed.
+  - Flexible communication: Messaging supports all the interaction styles.
+  - Explicit interprocess communication: RPC-based mechanism attempts to make invoking a remote service look the same as calling a local service.
+- The broker-based messaging architecture challenges:
+  - Potential performance bottleneck—There is a risk that the message broker could be a performance bottleneck. Fortunately, many modern message brokers are designed to be highly scalable.
+  - Potential single point of failure—It’s essential that the message broker is highly available—otherwise, system reliability will be impacted. Fortunately, most modern brokers have been designed to be highly available.
+  - Additional operational complexity—The messaging system is yet another system component that must be installed, configured, and operated.
+- Handling at-least-once messages delivery:
+  - Write idempotent message handlers: If the application logic that processes messages is idempotent, then duplicate messages are harmless. Application logic is idempotent if calling it multiple times with the same input values has no additional effect. For instance, cancelling an already-cancelled order is an idempotent operation
+  - Track messages and discard duplicates: Track the messages that it has processed using the message id and discard any duplicates.
+- Transactional outbox pattern: Uses a database table as a temporary message queue by inserting it into an *OUTBOX* table as part of the transaction that updates the database. The Message Relay reads the *OUTBOX* table and publishes the messages to a message broker. The *OUTBOX* table acts a temporary message queue. The *MessageRelay* is a component that reads the *OUTBOX* table and publishes the messages to a message broker.
+- Transaction log tailing: Tails the database transaction log and publish each message/event inserted into the *OUTBOX* to the message broker.
